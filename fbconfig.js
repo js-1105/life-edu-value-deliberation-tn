@@ -1,7 +1,7 @@
 /* ===== Firebase 設定（單元三·價值思辨　三類手機互動）=====
  * 沿用單元一同一個 life-edu-intro 專案（同網域 js-1105.github.io，免重新授權）。
  * 三類互動用不同資料節點，互不覆蓋：
- *   ① 課前作業·五組精華（心之高歌）   → rooms/<房號>/prologue/g1…g5
+ *   ① 課前作業·五組精華（卡繆抉擇／飲食指南）→ rooms/<房號>/prologue/g1…g5
  *   ② 小組討論·考城隍兩種道德判斷       → rooms/<房號>/kaocheng/g1…g5
  *   ③ 倫理學問題雲                      → rooms/<房號>/clouds/ethics
  * 未設定時（仍是 PASTE_...），頁面自動以「單機 localStorage 代打模式」運作。

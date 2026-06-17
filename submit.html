@@ -38,8 +38,8 @@ button.send:active{transform:translateY(1px);opacity:.9}
 <div class="wrap">
   <p class="intro" id="introTxt">把你們這一組討論的結果<b>充分</b>寫下來，字數不限、可分多次送出。送出後會即時出現在投影幕上你們這一組的頁面。</p>
   <section class="blk" id="blkMain">
-    <label id="lblMain">① 全組最有共鳴、或最有爭議的一點（一句＋為什麼）</label>
-    <textarea id="main" placeholder="看完《心之高歌》，全組覺得最有共鳴或最有爭議的一點是什麼？用一句話講出來，再說說為什麼…"></textarea>
+    <label id="lblMain">① 課前兩題·最有感的一點（一句＋為什麼）</label>
+    <textarea id="main" placeholder="課前兩題（卡繆的抉擇／飲食指南的改變），全組覺得最有感或最有爭議的一點是什麼？用一句話講出來，再說說為什麼…"></textarea>
     <button class="send" onclick="send()">送出</button>
     <div class="list" id="mainList"></div>
   </section>
@@ -63,6 +63,7 @@ button.send:active{transform:translateY(1px);opacity:.9}
     document.getElementById('blkMain').style.borderTopColor=C;
     document.title='第'+g+'組 考城隍 · 投稿';
   }else{
+    document.getElementById('gSub').textContent='課前兩題·把全組最有感的一點打上來';
     document.title='第'+g+'組 課前作業 · 投稿';
   }
   function esc(s){return String(s||'').replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
