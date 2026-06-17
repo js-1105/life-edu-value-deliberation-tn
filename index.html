@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>單元三　價值思辨 | 簡報</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --color-primary:#862633; --color-primary-dark:#5C1A23;
+  --color-accent:#D4AF37; --color-accent-deep:#A8782E; --color-accent-soft:#E8D080;
+  --color-bg:#FAF7F2; --color-text:#1A1A1A; --color-muted:#6B6B6B; --color-line:#E5DDD0;
+  --grad-accent:linear-gradient(90deg,var(--color-accent-deep),var(--color-accent) 45%,var(--color-accent-soft));
+  --grad-royal:linear-gradient(135deg,#8E2A38 0%,var(--color-primary-dark) 55%,#3d1016 100%);
+  --shadow-soft:0 4px 20px rgba(134,38,51,.08); --shadow-strong:0 12px 40px rgba(134,38,51,.18);
+  --font-sans:"Noto Sans TC","Microsoft JhengHei","微軟正黑體","PingFang TC",sans-serif;
+  --font-serif:"Noto Serif TC","Songti TC","PingFang TC",serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-sans);font-size:20px;line-height:1.78;color:var(--color-text);background:var(--color-bg);overflow:hidden}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;width:100%;height:100%;padding:5vh 6vw;opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .5s ease,transform .5s ease,visibility 0s linear .5s;display:flex;flex-direction:column;justify-content:center;
+  background:var(--color-bg) radial-gradient(circle at 1px 1px,rgba(134,38,51,.05) 1px,transparent 0) 0 0/22px 22px;}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0);transition:opacity .5s ease,transform .5s ease,visibility 0s}
+.slide.prev{transform:translateX(-40px)}
+.slide.roomy{--gap:.55em}
+.slide>*{position:relative;z-index:1}
+.fitwrap{position:relative;z-index:1;width:100%;height:100%;display:flex;flex-direction:column;justify-content:var(--jc,center);align-items:var(--ai,stretch);gap:var(--gap,0);transform-origin:center center}
+.slide.roomy h1{font-size:clamp(3rem,6.2vw,5.6rem)}
+.slide.roomy h2{font-size:clamp(2.3rem,4.4vw,3.7rem)}
+.slide.roomy p,.slide.roomy .lead{font-size:clamp(1.55rem,2.4vw,2.15rem)}
+.slide.roomy blockquote{font-size:clamp(1.7rem,2.8vw,2.4rem)}
+.slide.roomy ul.fl li{font-size:clamp(1.5rem,2.3vw,2rem)}
+.slide.roomy .big-q{font-size:clamp(2rem,4vw,3.2rem)}
+h1{font-family:var(--font-serif);font-size:clamp(2.6rem,5.2vw,4.8rem);font-weight:900;letter-spacing:.02em;line-height:1.3;color:var(--color-primary);margin-bottom:.4em}
+h2{font-family:var(--font-serif);font-size:clamp(2.2rem,4.2vw,3.6rem);font-weight:700;line-height:1.4;color:var(--color-primary);margin-bottom:.7em;padding-bottom:.35em;border-bottom:3px solid var(--color-accent);display:inline-block}
+h3{font-size:clamp(1.5rem,2.6vw,2.2rem);font-weight:600;color:var(--color-text);margin:.8em 0 .4em}
+p{font-size:clamp(1.35rem,2vw,1.85rem);margin-bottom:.7em;max-width:38em}
+.lead{font-size:clamp(1.55rem,2.5vw,2.2rem);color:var(--color-muted);font-weight:300}
+.muted{color:var(--color-muted)} .accent{color:var(--color-primary);font-weight:700}
+.src{font-size:.95rem;color:var(--color-muted);font-style:italic;margin-top:.4em;max-width:46em}
+blockquote{font-family:var(--font-serif);font-style:italic;font-size:clamp(1.5rem,2.4vw,2.1rem);border-left:4px solid var(--color-accent);padding:.5em 1.2em;margin:.8em 0;color:#4a3b1e;background:rgba(212,175,55,.08);max-width:36em}
+/* 分章節底色 + 細紋 + 金書脊 + 節次浮水印（JS 加 .sec-tint .sec-N） */
+.slide.sec-tint{background-color:var(--color-bg);
+  background-image:
+    radial-gradient(circle at 1px 1px,rgba(134,38,51,.05) 1px,transparent 1.5px),
+    radial-gradient(940px 620px at 95% 0%,rgba(212,175,55,.10),transparent 60%),
+    linear-gradient(155deg,var(--sec-a,#FAF7F2) 0%,var(--sec-b,#EFE7D9) 118%);
+  background-size:24px 24px,100% 100%,100% 100%;}
+.slide.sec-1{--sec-a:#FCF5F3;--sec-b:#EFDCD9} /* 壹 暖玫瑰 */
+.slide.sec-2{--sec-a:#FCF7EA;--sec-b:#F0E2C5} /* 貳 暖金 */
+.slide.sec-3{--sec-a:#EFF6F1;--sec-b:#D6E6DC} /* 參 沉靜綠 */
+.slide.sec-4{--sec-a:#F6F1F8;--sec-b:#E2D6EA} /* 肆 雅紫 */
+.slide.sec-5{--sec-a:#EFF3F8;--sec-b:#D8E2EE} /* 伍 霧藍 */
+.slide.sec-6{--sec-a:#FBF1EA;--sec-b:#F0DDCB} /* 陸 暖赭 */
+.slide.sec-7{--sec-a:#EAF2F4;--sec-b:#CFE0E4} /* 柒 生命之河青（備用） */
+.slide.sec-tint::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--grad-accent);opacity:.6;z-index:0}
+.slide.sec-tint::after{content:attr(data-chap);position:absolute;top:-.14em;right:.06em;font-family:var(--font-serif);font-weight:900;line-height:1;font-size:46vh;color:var(--color-primary);opacity:.05;z-index:0;pointer-events:none;user-select:none}
+/* 章節頁 */
+.section-divider{--ai:flex-start;background:var(--grad-royal);color:#fff;overflow:hidden}
+.section-divider::before{content:"";position:absolute;inset:0;background:radial-gradient(620px 620px at 70% 40%,rgba(212,175,55,.18),transparent 60%),radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 0);background-size:auto,28px 28px;z-index:0}
+.section-divider .stage{font-size:clamp(1.1rem,2vw,1.5rem);color:var(--color-accent-soft);font-weight:700;letter-spacing:.3em;margin-bottom:.1em}
+.section-divider .num{font-family:var(--font-serif);font-size:clamp(4rem,13vw,10rem);font-weight:900;line-height:1;background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 4px 30px rgba(212,175,55,.3)}
+.section-divider h1{margin-top:.05em;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.25)}
+.section-divider .when{color:rgba(255,255,255,.82);margin-top:.5em;letter-spacing:.05em;max-width:34em}
+/* 封面 */
+.slide.cover{background:var(--grad-royal);color:#fff;text-align:center;--ai:center;overflow:hidden}
+.slide.cover::before{content:"";position:absolute;inset:0;background:radial-gradient(720px 460px at 50% 20%,rgba(212,175,55,.12),transparent 68%),linear-gradient(180deg,rgba(40,8,13,.04),rgba(40,8,13,.28));z-index:1}
+.cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32;z-index:0}
+.slide.cover h1{color:#fff;font-size:clamp(2.6rem,6vw,5.2rem)} .slide.cover .lead{color:rgba(255,255,255,.9)}
+.slide.cover .stage{color:var(--color-accent-soft);letter-spacing:.35em;font-weight:700}
+.slide.cover .ornament{width:90px;height:4px;background:var(--grad-accent);margin:1.1em auto;border-radius:2px}
+.slide.cover .meta{margin-top:2em;font-size:1rem;color:rgba(255,255,255,.74);letter-spacing:.08em}
+.cover .stage,.cover h1,.cover .ornament,.cover .lead,.cover .cover-cta,.cover .meta,.cover .back-home-btn{position:relative;z-index:2}
+/* 卡片/格 */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:center;flex:1;width:100%}
+.toc-themes{list-style:none;max-width:none;width:100%;margin:.5em 0 0;padding:0}
+.toc-themes li{display:flex;align-items:baseline;gap:.8em;padding:.46em .2em;border-bottom:1px dashed var(--color-line);font-size:clamp(1.15rem,1.75vw,1.6rem);line-height:1.4}
+.toc-themes .tn{font-family:var(--font-serif);font-weight:900;color:var(--color-accent);font-size:1.3em;flex:none;min-width:1.5em;text-align:center}
+.toc-themes b{color:var(--color-primary)}
+.numlist{margin:0;padding-left:1.5em;font-size:clamp(1.12rem,1.65vw,1.52rem);line-height:1.45}
+.numlist li{padding:.34em 0;border-bottom:1px dashed var(--color-line)}
+.mchips{display:flex;flex-wrap:wrap;gap:.6em;align-content:center}
+.mchip{background:#fff;border:1px solid var(--color-line);border-left:5px solid var(--color-primary);border-radius:10px;padding:.46em .85em;font-size:clamp(1.05rem,1.5vw,1.5rem);font-weight:700;color:var(--color-text);box-shadow:var(--shadow-soft)}
+.qcap{display:flex;gap:.5em;margin-top:.6em;text-align:left;background:rgba(134,38,51,.09);border:1px solid rgba(134,38,51,.20);border-left:5px solid var(--color-primary);border-radius:8px;padding:.55em .8em;font-size:clamp(1.18rem,1.7vw,1.6rem);font-weight:700;color:var(--color-primary);line-height:1.5}
+.qcap .qn{color:var(--color-accent);flex:none}
+.qcap .qt{flex:1}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;width:100%}
+.card{background:#fff;padding:1.3em 1.4em;border-radius:14px;box-shadow:var(--shadow-soft);border-top:4px solid var(--color-accent)}
+.card h3{margin-top:0;color:var(--color-primary)}
+.card.compact p{font-size:1.2rem;margin-bottom:.3em}
+.tag{display:inline-block;background:var(--color-primary);color:#fff;padding:.25em .9em;border-radius:999px;font-size:.85rem;font-weight:600;letter-spacing:.08em;margin-bottom:.6em}
+ul.fl{list-style:none} ul.fl li{position:relative;padding:.5em 0 .5em 1.6em;font-size:clamp(1.25rem,1.9vw,1.7rem);border-bottom:1px dashed var(--color-line)}
+ul.fl li::before{content:"";position:absolute;left:0;top:1.05em;width:.7em;height:.7em;background:var(--color-accent);border-radius:50%}
+.slide.dense ul.fl li{font-size:clamp(1.06rem,1.5vw,1.4rem);padding-top:.36em;padding-bottom:.36em;line-height:1.4}
+.slide.dense ul.fl li::before{top:.9em}
+.practice{background:linear-gradient(135deg,rgba(212,175,55,.13),rgba(212,175,55,.03));border:2px dashed var(--color-accent);padding:1.2em 1.5em;border-radius:16px;margin-top:.5em}
+.practice .label{display:inline-block;background:var(--color-primary);color:#fff;padding:.25em .9em;border-radius:999px;font-size:.85rem;font-weight:600;margin-bottom:.5em;letter-spacing:.1em}
+.big-q{font-family:var(--font-serif);font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:700;color:var(--color-primary);line-height:1.5}
+/* 人物水彩肖像框 */
+.thinker-row{display:flex;align-items:center;gap:4vw;flex:1;width:calc(100% + 7vw);margin-left:-3.5vw}
+.thinker-row>.thinker-text{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.45em}
+.thinker-text p{font-size:clamp(1.55rem,2.05vw,2.15rem);max-width:none;margin:0}
+.thinker-text blockquote{font-size:clamp(1.75rem,2.55vw,2.35rem);max-width:none}
+.thinker-text .src{font-size:clamp(1rem,1.25vw,1.22rem);max-width:none}
+.thinker-text .lead{font-size:clamp(1.4rem,1.85vw,1.78rem);color:var(--color-muted);font-weight:300;margin:0}
+.wc-with-caption{display:flex;flex-direction:column;align-items:center;flex:none}
+.wc-frame{display:inline-block;padding:11px;border-radius:18px;background:linear-gradient(155deg,var(--wc1,#F3EFE6),var(--wc2,#E7DECB));box-shadow:var(--shadow-strong);border:1px solid rgba(212,175,55,.45)}
+.wc-frame img{display:block;width:100%;height:auto;border-radius:12px;max-width:300px}
+.wc-aristotle{--wc1:#ECEEF2;--wc2:#D7DCE4}
+.wc-mozi{--wc1:#EFEAE0;--wc2:#E0D3BC}
+.wc-mengzi{--wc1:#EDF1E8;--wc2:#D9E4CE}
+.wc-kongzi{--wc1:#F6EFDD;--wc2:#EBDDBE}
+.wc-zhuzi{--wc1:#EFEAE0;--wc2:#E0D3BC}
+.wc-cap{margin-top:.6em;font-family:var(--font-serif);font-style:italic;font-size:clamp(1.1rem,1.5vw,1.5rem);color:var(--color-muted);text-align:center;letter-spacing:.03em}
+/* 影片 */
+.video-wrap{position:relative;z-index:60;width:100%;max-width:560px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-strong);margin:.3em 0;background:#000}
+.video-wrap iframe{width:100%;height:100%;border:0}
+.localvid{display:flex;gap:.7em;align-items:center;background:#fff;border:1px solid var(--color-line);border-left:4px solid var(--color-accent);border-radius:12px;padding:.7em .95em;box-shadow:var(--shadow-soft);margin:.35em 0;max-width:34em}
+/* 圖片大圖 */
+.gimg{display:block;border-radius:16px;box-shadow:var(--shadow-strong);border:1px solid rgba(212,175,55,.4);object-fit:cover}
+.figbox{display:flex;flex-direction:column;align-items:center;gap:.4em}
+.figbox .fcap{font-family:var(--font-serif);font-style:italic;font-size:clamp(.95rem,1.2vw,1.18rem);color:var(--color-muted);text-align:center;max-width:26em}
+/* 表格 */
+table.tbl{width:100%;border-collapse:collapse;font-size:clamp(1.02rem,1.45vw,1.42rem);background:rgba(255,255,255,.7);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-soft)}
+table.tbl th,table.tbl td{padding:.72em .95em;text-align:left;border-bottom:1px solid var(--color-line);line-height:1.45;vertical-align:top}
+table.tbl thead th{background:var(--color-primary);color:#fff;font-family:var(--font-serif);font-weight:700;border-bottom:none}
+table.tbl tbody tr:nth-child(even){background:rgba(212,175,55,.06)}
+table.tbl .lv{font-family:var(--font-serif);font-weight:700;color:var(--color-primary);white-space:nowrap}
+.feature-list{list-style:none;counter-reset:li-counter}
+.feature-list li{position:relative;padding:.55em 0 .55em 2.3em;font-size:clamp(1.1rem,1.55vw,1.42rem);border-bottom:1px dashed var(--color-line);line-height:1.6}
+.feature-list li::before{content:counter(li-counter);counter-increment:li-counter;position:absolute;left:0;top:.6em;width:1.6em;height:1.6em;background:var(--color-accent);color:var(--color-primary-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8em}
+/* 方法論時間軸總覽 */
+.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;width:100%}
+.method-card{background:#fff;border-radius:16px;box-shadow:var(--shadow-soft);border-top:6px solid var(--color-accent);padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.3em}
+.method-card .mn{font-family:var(--font-serif);font-size:1.6rem;font-weight:900;color:var(--color-accent-deep);line-height:1}
+.method-card h3{margin:.1em 0 .15em;color:var(--color-primary);font-size:clamp(1.25rem,1.8vw,1.7rem)}
+.method-card p{font-size:clamp(.95rem,1.25vw,1.18rem);color:var(--color-muted);margin:0;line-height:1.5}
+/* 兩欄對比卡 */
+.contrast2{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%;margin-top:.4em}
+.contrast2 .card h3{font-size:clamp(1.4rem,2vw,1.95rem)}
+.contrast2 .card p{font-size:clamp(1.02rem,1.35vw,1.3rem);line-height:1.6}
+.pro-card{border-top-color:#3E7D5A!important;background:linear-gradient(135deg,#fff,#eef6f0)}
+.con-card{border-top-color:#A33!important;background:linear-gradient(135deg,#fff,#f7eeee)}
+/* 文字雲頁 */
+.cloud-stage{display:grid;grid-template-columns:auto 1fr;gap:2.2vw;align-items:center;flex:1;min-height:0;width:100%;margin-top:.2em}
+.cloud-side{display:flex;flex-direction:column;align-items:center;gap:.7em;width:clamp(190px,18vw,260px)}
+.cloud-side .lead{text-align:center;max-width:none;margin:0;font-size:clamp(1.1rem,1.4vw,1.4rem)}
+.cloud-side .src{text-align:center;max-width:none;margin:0}
+.cloud-qr{background:#fff;border-radius:16px;border-top:7px solid var(--color-accent-deep);box-shadow:var(--shadow-strong);padding:.8em .8em .6em;display:flex;flex-direction:column;align-items:center;gap:.4em}
+.cloud-qr .qr-box{width:clamp(130px,11vw,180px);height:clamp(130px,11vw,180px)}
+.cloud-qr .qr-box img,.cloud-qr .qr-box canvas{width:100%!important;height:100%!important;display:block}
+.cloud-qr .qr-cap{font-family:var(--font-serif);font-weight:900;color:var(--color-primary);font-size:clamp(1.1rem,1.3vw,1.35rem)}
+.cloud-canvas-wrap{flex:1 1 auto;position:relative;min-height:60vh;height:100%;border-radius:16px;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.9),transparent 55%),linear-gradient(145deg,#f8f2e8,#efe5d4);box-shadow:var(--shadow-strong);overflow:hidden}
+.cloud-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%}
+.cloud-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--color-muted);font-style:italic;font-size:clamp(1.1rem,1.4vw,1.4rem);text-align:center;padding:0 1em}
+/* 五組 QR 頁 */
+.qr-intro{text-align:center;max-width:none;margin:.25em auto .55em;font-size:clamp(1.4rem,2vw,1.95rem);line-height:1.5;color:var(--color-text)}
+.qr-stage{display:flex;justify-content:center;align-items:center;gap:1.6vw;flex:1;min-height:0;width:100%}
+.qr-card{flex:1 1 0;max-width:300px;background:#fff;border-radius:20px;border-top:9px solid var(--c,#862633);box-shadow:var(--shadow-strong);padding:1.2em 1em 1.3em;display:flex;flex-direction:column;align-items:center;gap:.7em}
+.qr-box{width:100%;max-width:235px;aspect-ratio:1;background:#fff;display:flex;align-items:center;justify-content:center}
+.qr-box img,.qr-box canvas{width:100%!important;height:100%!important;display:block}
+.qr-cap{font-family:var(--font-serif);font-weight:900;color:var(--c,#862633);font-size:clamp(1.5rem,2.05vw,2.05rem);text-align:center;line-height:1.12}
+.qr-cap small{display:block;font-family:var(--font-sans);font-weight:700;color:var(--color-text);font-size:.7em;letter-spacing:.02em;margin-top:.15em}
+/* 五組即時頁 */
+.gpage h2 .g-dot{display:inline-block;width:.62em;height:.62em;border-radius:50%;background:var(--c);margin-right:.45em;vertical-align:middle}
+.gpage .gbox{flex:1;min-height:0;overflow:auto;background:rgba(255,255,255,.85);border:2px solid var(--color-line);border-radius:14px;padding:.8em .9em;display:flex;flex-direction:column;gap:.6em;width:100%;margin-top:.3em}
+.gitem{background:#fff;border-left:5px solid var(--c,#862633);border-radius:8px;box-shadow:var(--shadow-soft);padding:.6em .9em;font-size:clamp(1.1rem,1.45vw,1.45rem);line-height:1.55;white-space:pre-wrap;animation:u3pop .3s ease}
+.gbox .empty-hint{margin:auto;font-size:1.05rem;color:var(--color-muted);font-style:italic;text-align:center}
+@keyframes u3pop{from{opacity:0;transform:scale(.85)}to{opacity:1}}
+.daiuda{display:flex;gap:.5em;align-items:center;margin-top:.6em;flex-wrap:wrap}
+.daiuda .tag{font-size:.78rem;color:var(--color-muted);background:rgba(0,0,0,.05);padding:.28em .8em;border-radius:999px;white-space:nowrap;margin:0}
+.daiuda input{flex:1;min-width:11em;font-family:var(--font-sans);font-size:1rem;padding:.45em .7em;border:2px solid var(--color-line);border-radius:8px;background:#fff;color:var(--color-text)}
+.daiuda .btn{background:var(--color-primary);color:#fff;border:none;border-radius:999px;padding:.5em 1.3em;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit}
+#fbStatus{font-weight:700}
+/* 主題曲頁 */
+.lyrics{font-family:var(--font-serif);font-size:clamp(.98rem,1.5vw,1.22rem);line-height:1.85;color:#4a3b1e;column-count:2;column-gap:3em;max-width:60em}
+.lyrics p{font-size:clamp(.98rem,1.5vw,1.22rem);break-inside:avoid;margin-bottom:.7em;max-width:none}
+.lyrics .h{color:var(--color-primary);font-weight:700;font-style:normal;letter-spacing:.05em}
+/* 結語/彩蛋 */
+.slide.eggsong{background:var(--grad-royal) !important}
+.slide.eggsong::after{content:none !important}
+.eggsong h2{color:#fff;border-bottom-color:var(--color-accent)}
+.eggsong .lyrics{color:#f4e9d8}
+.eggsong .lyrics .h{color:var(--color-accent-soft)}
+.eggsong .src{color:rgba(255,255,255,.72)}
+.eggsong h2,.eggsong .lyrics,.eggsong .src,.eggsong .back-home-btn{position:relative;z-index:2}
+.eggsong .egg-deco{position:absolute;z-index:0;pointer-events:none;opacity:.62}
+.eggsong .egg-deco-tr{top:8vh;right:5vw;width:clamp(95px,9vw,150px)}
+.eggsong .egg-deco-bl{bottom:10vh;left:4.5vw;width:clamp(75px,7.5vw,120px)}
+.closing{text-align:center;background:var(--grad-royal);color:#fff;--ai:center;overflow:hidden}
+.closing::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 480px at 50% 30%,rgba(212,175,55,.18),transparent 62%);z-index:0}
+.closing .ending-line{font-family:var(--font-serif);font-weight:700;color:#fff;font-size:clamp(2.8rem,7vw,5.6rem);letter-spacing:.12em;text-shadow:0 2px 30px rgba(0,0,0,.3);position:relative;z-index:2}
+.closing .ending-sub{position:relative;z-index:2;color:rgba(255,255,255,.88);font-size:clamp(1.3rem,2vw,1.8rem);max-width:30em;margin:.6em auto 0;line-height:1.7}
+.closing .ending-ornament{width:clamp(90px,14vw,200px);height:3px;margin:.9em auto;background:var(--grad-accent);border-radius:999px;box-shadow:0 0 18px rgba(212,175,55,.55);position:relative;z-index:2}
+.closing .signature{font-family:var(--font-serif);font-size:clamp(1.2rem,2vw,1.7rem);letter-spacing:.2em;color:var(--color-accent-soft);position:relative;z-index:2;margin-top:.5em}
+.closing .back-home-btn{position:relative;z-index:2}
+/* 導覽 */
+.progress-bar{position:fixed;bottom:0;left:0;height:4px;background:var(--color-accent);width:0;transition:width .4s;z-index:100}
+.page-indicator{position:fixed;bottom:1.4em;right:2em;font-size:.85rem;color:var(--color-muted);font-variant-numeric:tabular-nums;z-index:100;background:rgba(255,255,255,.8);padding:.25em .8em;border-radius:999px;backdrop-filter:blur(8px)}
+.nav-arrows{position:fixed;bottom:1.4em;left:2em;display:flex;gap:.5em;z-index:100}
+.nav-arrows button,.fs-toggle{width:2.3em;height:2.3em;border:none;background:rgba(134,38,51,.1);color:var(--color-primary);border-radius:50%;cursor:pointer;font-size:1.15rem;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit}
+.nav-arrows button:hover,.fs-toggle:hover{background:var(--color-primary);color:#fff;transform:scale(1.1)}
+.fs-toggle{position:fixed;bottom:1.4em;right:5.5em;z-index:100}
+.click-zones{position:fixed;inset:0;display:flex;pointer-events:none;z-index:50}
+.click-zone{flex:1;pointer-events:auto;cursor:pointer}
+body.no-clickzones .click-zones{display:none}
+.cover-cta{position:relative;z-index:60;margin-top:2em;background:var(--color-accent);color:var(--color-primary-dark);border:none;padding:1em 2.4em;font-size:1.05rem;font-weight:700;border-radius:999px;cursor:pointer;font-family:inherit;letter-spacing:.1em;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:transform .2s}
+.cover-cta:hover{transform:translateY(-2px)}
+.back-home-btn{position:relative;z-index:60;margin-top:1.6em;background:transparent;color:var(--color-accent);border:2px solid var(--color-accent);padding:.7em 1.8em;font-size:.95rem;font-weight:600;border-radius:999px;cursor:pointer;font-family:inherit;letter-spacing:.1em;transition:all .2s}
+.back-home-btn:hover{background:var(--color-accent);color:var(--color-primary-dark);transform:translateY(-2px)}
+.toast{position:fixed;top:1.5em;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:.6em 1.4em;border-radius:999px;font-size:.9rem;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+@media(max-width:768px){.grid2,.grid3,.method-grid,.contrast2,.cloud-stage{grid-template-columns:1fr}.lyrics{column-count:1}}
+</style>
+<script src="fbconfig.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.0/wordcloud2.min.js"></script>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ===================== 封面 ===================== -->
+<section class="slide cover active">
+  <img class="cover-bg" src="images/mountain.jpg" alt="" aria-hidden="true">
+  <div class="stage">單元三　·　人生第二問</div>
+  <h1>價值思辨</h1>
+  <div class="ornament"></div>
+  <p class="lead">該怎樣活？——在每一個抉擇的當下，憑什麼選擇？</p>
+  <button class="cover-cta" onclick="startPresentation()">進入全螢幕．開始上課</button>
+  <div class="meta">孫效智　|　臺大生命教育研發育成中心　第十期師資培育學分班　|　台北班　Day 3</div>
+  <button class="back-home-btn" style="margin-top:.6em;font-size:.72em;opacity:.55;background:none;border:none;text-decoration:underline;cursor:pointer;padding:0" onclick="goToSlide(document.querySelectorAll('.slide').length)">跳到最後一頁</button>
+</section>
+
+<!-- 目錄：今天的地圖 -->
+<section class="slide roomy">
+  <h2>今天的地圖：六節課，一條路</h2>
+  <p class="lead" style="max-width:none">昨天問「人為何而活」（終極關懷）；今天問「該<b>怎樣</b>活」——學會在價值衝突中，做出有理由、站得住的抉擇。</p>
+  <ul class="fl">
+    <li><b>第 1 節</b>　從你的課前作業談起——價值思辨無所不在（09:10–10:00）</li>
+    <li><b>第 2 節</b>　價值思辨導論——它的範疇、定位與方法（10:10–11:00）</li>
+    <li><b>第 3 節</b>　終極關懷與價值思辨的關係——為何不能脫離終極理想（11:10–12:00）</li>
+    <li class="muted">──　午休　·　下午先自己思辨一次，再學方法　──</li>
+    <li><b>第 4 節</b>　小組討論與報告——〈考城隍〉與倫理學的收穫（13:00–13:50）</li>
+    <li><b>第 5 節</b>　價值思辨方法論——東西方智慧的六把尺（14:00–15:00）</li>
+    <li><b>第 6 節</b>　當前重大價值爭議與總結（15:10–16:00）</li>
+  </ul>
+</section>
+
+<!-- 本日六站總覽 -->
+<section class="slide roomy" style="--jc:flex-start;padding-top:4.5vh">
+  <h2>今天，我們會走過這六站</h2>
+  <p class="lead" style="max-width:none">一條從「你自己的兩難」走向「該怎樣活」的路。</p>
+  <ul class="toc-themes">
+    <li><span class="tn">壹</span><span><b>從你的課前作業談起</b>——價值思辨並不只關乎道德</span></li>
+    <li><span class="tn">貳</span><span><b>價值思辨導論</b>——範疇、定位，與「方法」到底是什麼</span></li>
+    <li><span class="tn">參</span><span><b>終極關懷與價值思辨的關係</b>——沒有北極星，所有方向都一樣</span></li>
+    <li><span class="tn">肆</span><span><b>停下來，自己思辨一次</b>——〈考城隍〉與倫理學的收穫（小組討論與報告）</span></li>
+    <li><span class="tn">伍</span><span><b>價值思辨方法論</b>——東西方智慧累積的六把尺</span></li>
+    <li><span class="tn">陸</span><span><b>當前重大價值爭議與總結</b>——非體道者不能與權的時代</span></li>
+  </ul>
+</section>
+
+<!-- ===================== 壹　從你的課前作業談起 ===================== -->
+<section class="slide section-divider">
+  <div class="num">壹</div>
+  <h1>從你的課前作業談起</h1>
+  <p class="when">價值思辨，並不只關乎道德。它早已滲進你每天的選擇裡——先從你課前寫下的那部電影談起。</p>
+</section>
+
+<!-- 課前作業回顧 -->
+<section class="slide">
+  <h2>你的課前作業：電影《心之高歌》觀後</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">這份觀後心得與 AI 對話紀錄，<b>你已在課前完成並繳交</b>。今天先在小組裡，互相聽見彼此被觸動、被卡住的那一點。</p>
+      <p class="muted" style="margin-top:.6em">昨天我們問「什麼是<b>美好人生</b>」；今天順著它往下追問：<b>當美好人生的各種元素彼此衝突時，該怎麼選？</b></p>
+    </div>
+    <div>
+      <div class="qcap"><span class="qn">①</span><span class="qt">什麼東西是美好人生的正面或負面元素？</span></div>
+      <div class="qcap"><span class="qn">②</span><span class="qt">如何進行價值改變與方向抉擇？</span></div>
+      <div class="qcap"><span class="qn">③</span><span class="qt">自由發揮觀影心得，並與 AI 討論</span></div>
+    </div>
+  </div>
+  <p class="src" style="text-align:center;max-width:none">課前作業依《翻轉教室作業設計規劃》單元三設計：觀影 → 與 AI 對話 → 提出自己的主張。</p>
+</section>
+
+<!-- 課前作業分組 QR -->
+<section class="slide">
+  <h2>掃你那一組的 QR，把全組精華打上來</h2>
+  <p class="lead qr-intro">請各組派<b>一位同學</b>，掃描你們那一組的碼，寫下「<b>全組最有共鳴、或最有爭議的一點</b>」（一句話＋為什麼），投影幕即時更新。</p>
+  <div class="qr-stage">
+    <div class="qr-card" style="--c:#862633"><div class="qr-box" data-pg="1"></div><div class="qr-cap">第1組</div></div>
+    <div class="qr-card" style="--c:#A8782E"><div class="qr-box" data-pg="2"></div><div class="qr-cap">第2組</div></div>
+    <div class="qr-card" style="--c:#1E5F74"><div class="qr-box" data-pg="3"></div><div class="qr-cap">第3組</div></div>
+    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-pg="4"></div><div class="qr-cap">第4組</div></div>
+    <div class="qr-card" style="--c:#5C1A23"><div class="qr-box" data-pg="5"></div><div class="qr-cap">第5組</div></div>
+  </div>
+</section>
+
+<!-- 課前作業五組即時頁 -->
+<section class="slide gpage" style="--c:#862633"><h2><span class="g-dot"></span>第1組 · 美好人生的元素與抉擇</h2><div class="gbox" id="pg1"></div><div class="daiuda" data-pg="1"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#A8782E"><h2><span class="g-dot"></span>第2組 · 美好人生的元素與抉擇</h2><div class="gbox" id="pg2"></div><div class="daiuda" data-pg="2"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#1E5F74"><h2><span class="g-dot"></span>第3組 · 美好人生的元素與抉擇</h2><div class="gbox" id="pg3"></div><div class="daiuda" data-pg="3"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#6B5635"><h2><span class="g-dot"></span>第4組 · 美好人生的元素與抉擇</h2><div class="gbox" id="pg4"></div><div class="daiuda" data-pg="4"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#5C1A23"><h2><span class="g-dot"></span>第5組 · 美好人生的元素與抉擇</h2><div class="gbox" id="pg5"></div><div class="daiuda" data-pg="5"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
+
+<!-- 從作業看見：價值思辨的範疇 -->
+<section class="slide">
+  <h2>從你們的議題看出來：價值思辨無所不在</h2>
+  <p class="lead" style="max-width:none">大家舉的例子，從個人生活一路延伸到社會與終極信念——這正說明了：</p>
+  <div class="grid3" style="margin-top:.4em">
+    <div class="card"><h3>個人生活</h3><p>飲食運動、生活美學、生涯規劃、單身或結婚、是否生養孩子……</p></div>
+    <div class="card"><h3>社會與制度</h3><p>死刑存廢、轉型正義、言論自由與政治正確的邊界、歧視、平權……</p></div>
+    <div class="card"><h3>人生終極信念</h3><p>人為何而活、愛與慈悲是不是最高價值、生命的意義何在……</p></div>
+  </div>
+  <p class="muted" style="margin-top:.7em;max-width:none">每一個層次都需要<b>價值判斷</b>來決定方向，而價值判斷應以<b>價值思辨</b>為前提。</p>
+</section>
+
+<!-- ===================== 貳　價值思辨導論 ===================== -->
+<section class="slide section-divider">
+  <div class="num">貳</div>
+  <h1>價值思辨導論</h1>
+  <p class="when">在學「怎麼思辨」之前，先把四件事說清楚：它的範圍、它的定位、什麼才算「方法」，以及它和規範底線的關係。</p>
+</section>
+
+<section class="slide">
+  <h2>一、價值思辨的範圍問題</h2>
+  <p class="lead" style="max-width:none">價值思辨<b>並非只涉及道德問題</b>。在生活的不同層面，都有價值思辨的需要。</p>
+  <ul class="fl">
+    <li>飲食運動、生活美學（喝茶、咖啡或美酒）——美雖然主觀，卻也不能完全排除客觀因素</li>
+    <li>生涯規劃——考研究所或就業？單身或結婚？是否生養孩子？</li>
+    <li>而這些，也可以拉到<b>人生召喚與理想</b>的高度，帶著責任、承擔與世界觀的重量</li>
+  </ul>
+  <blockquote>思辨的框架，是在每個人<b>獨特的主客觀條件</b>下，做利弊得失的比較。</blockquote>
+</section>
+
+<section class="slide">
+  <h2>二、不要把人生三問錯置</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">價值思辨是<b>人生第二問</b>：「該怎樣活？」</p>
+      <p class="muted">它常和第一問交錯，要練習分辨——</p>
+    </div>
+    <div>
+      <table class="tbl">
+        <thead><tr><th>問題</th><th>屬於</th></tr></thead>
+        <tbody>
+          <tr><td>人生的意義與目的是什麼？</td><td class="lv">第一問·終極關懷</td></tr>
+          <tr><td>在這個情境中，我該做什麼？該依循什麼？</td><td class="lv">第二問·價值思辨</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="muted" style="margin-top:.6em;max-width:none">想談「終極信念」，問的卻是「士兵在戰場上該服從什麼」——後者其實是價值思辨。看清楚問題屬於哪一問，思辨才不會走錯路。</p>
+</section>
+
+<section class="slide">
+  <h2>三、價值思辨需要豐厚的專業知識與經驗</h2>
+  <p class="lead" style="max-width:none">真實議題的價值思辨，從來不是「光憑直覺表態」，而要建立在對該領域的理解上：</p>
+  <div class="mchips" style="margin-top:.3em">
+    <span class="mchip">師生權利義務</span>
+    <span class="mchip">死刑存廢</span>
+    <span class="mchip">自閉症研究的道德兩難</span>
+    <span class="mchip">言論自由 vs 政治正確的邊界</span>
+    <span class="mchip">轉型正義</span>
+    <span class="mchip">SDGs 與 ESG 的反思</span>
+    <span class="mchip">各種歧視問題</span>
+  </div>
+  <p class="muted" style="margin-top:.8em;max-width:none">沒有專業知識作底，價值思辨容易淪為口號之爭。這也是為什麼——它需要一輩子的學習與經驗。</p>
+</section>
+
+<section class="slide">
+  <h2>四、什麼才算「價值思辨的方法」？</h2>
+  <div class="contrast2">
+    <div class="card con-card">
+      <h3>這不是方法論</h3>
+      <p>為某個主張（例如性別平等）<b>提出論證</b>——這是在替一個立場辯護。</p>
+    </div>
+    <div class="card pro-card">
+      <h3>這才是方法論</h3>
+      <p>退一步問：<b>面對任何價值爭議，我們可以憑哪些原則去衡量？</b>——這是今天下午要學的六把尺。</p>
+    </div>
+  </div>
+  <p class="muted" style="margin-top:.7em;max-width:none">分清楚「為立場辯護」與「提供思辨方法」，是價值思辨教學最關鍵的一步。</p>
+</section>
+
+<section class="slide">
+  <h2>五、規範／底線，與價值思辨之間</h2>
+  <ul class="fl">
+    <li>透過價值思辨去<b>證成、確認、解構或重構</b>道德規範或底線</li>
+    <li>而後<b>服從、持守</b>那些經過確認或重構的規範與底線</li>
+  </ul>
+  <blockquote>以「說謊」為例：我們先思辨「為什麼不該說謊／什麼情況例外」，確認了規範之後，再持守它。<br>——思辨不是為了取消規範，而是為了讓規範站得住。</blockquote>
+</section>
+
+<!-- ===================== 參　終極關懷與價值思辨的關係 ===================== -->
+<section class="slide section-divider">
+  <div class="num">參</div>
+  <h1>終極關懷與價值思辨的關係</h1>
+  <p class="when">這是台灣版價值思辨最關鍵、也最容易被忽略的一塊：價值思辨不能脫離終極理想，否則淪為相對主義。</p>
+</section>
+
+<section class="slide">
+  <h2>核心命題</h2>
+  <div class="big-q" style="text-align:center;margin:.5em auto;max-width:24em">
+    終極關懷尋求<b>終極理想</b>與<b>終極信念</b>，<br>從而影響人的<b>價值觀</b>與<b>實踐動力</b>。
+  </div>
+  <p class="lead" style="max-width:none;text-align:center">昨天建立的終極關懷，正是今天價值排序的<b>形上基礎</b>。</p>
+</section>
+
+<!-- 終極理想 -->
+<section class="slide">
+  <h2>終極理想（一）：人生的目的，是追求幸福嗎？</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">東西方宗教與哲學傳統，往往肯定<b>愛與慈悲</b>才是人生最高的價值——而不只是個人幸福的最大化。</p>
+      <p class="muted">那麼，「幸福」與「愛、慈悲」之間，該如何排序？</p>
+    </div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/tA7DAMomA2s" title="人生的目的是追求幸福嗎" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>終極理想（二）：愛與慈悲，是人生的最高價值</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">東西方的宗教傳統，不約而同把<b>愛與慈悲</b>放在價值體系的頂端。</p>
+      <p class="muted">這不是抽象口號——它會直接決定，當利益與他人福祉衝突時，你往哪邊傾斜。</p>
+    </div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/oHGcTFaJ-uo" title="愛與慈悲" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>終極理想（三）：我們究竟應為何而活？</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">無論用什麼方式述說終極理想——幸福、慈悲、愛——它的<b>具體內涵，都需要價值思辨來確立</b>。</p>
+      <p class="muted">而具體的價值體系，又深受<b>文化與宗教傳統</b>的影響。</p>
+    </div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/Z8R5aewohoo" title="我們究竟應為何而活" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- 終極信念 -->
+<section class="slide">
+  <h2>終極信念：虛無，還是存有？</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <ul class="fl">
+        <li><b>存在虛無主義</b>，將導向<b>道德虛無主義</b>——若一切終歸虛無，善惡又有什麼分別？</li>
+        <li>唯有某種<b>終極信念</b>（在許多傳統中是宗教信仰），才能超越存在的虛無。</li>
+      </ul>
+    </div>
+    <div>
+      <blockquote>To be or not to be,<br>that is the question.</blockquote>
+      <p class="lead" style="max-width:none">人渴望<b>存有</b>，而非虛無；<br>渴望<b>永恆</b>，以超越無常。</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>所以——價值思辨不能脫離終極理想</h2>
+  <div class="big-q" style="text-align:center;margin:.4em auto;max-width:26em">
+    若沒有北極星，所有方向都一樣；<br>若什麼都可以，那就什麼都不算數。
+  </div>
+  <p class="lead" style="max-width:none;text-align:center">脫離了終極理想的價值思辨，會滑向<b>相對主義</b>。<br>先想清楚「我究竟要去哪裡」，路，才會浮現。</p>
+</section>
+
+<!-- ===================== 肆　小組討論與報告 ===================== -->
+<section class="slide section-divider">
+  <div class="num">肆</div>
+  <h1>停下來，自己思辨一次</h1>
+  <p class="when">在學方法之前，先用你昨天的終極關懷、與這三節的概念，親手做一次價值思辨——小組討論與報告。</p>
+</section>
+
+<!-- 討論題目 -->
+<section class="slide">
+  <h2>小組討論題目（兩題）</h2>
+  <div class="qcap"><span class="qn">一</span><span class="qt">閱讀《聊齋誌異》第一篇〈考城隍〉，用<b>兩種道德判斷</b>去闡述它的考題、以及宋公的回答。並說明這兩種道德判斷之間的<b>不對稱關係</b>。</span></div>
+  <div class="qcap"><span class="qn">二</span><span class="qt">從<b>基本倫理學</b>與<b>應用倫理學</b>的學習中，你得到哪些收穫？又有哪些<b>不清楚、或需要釐清</b>的地方？</span></div>
+  <p class="src" style="max-width:none;margin-top:.8em">討論時間約 20 分鐘，之後各組派代表報告。題二的疑問會收進「問題雲」，現場一起回應。</p>
+</section>
+
+<!-- 考城隍 故事與考題 -->
+<section class="slide">
+  <h2>題一·背景：〈考城隍〉的考題</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">《聊齋誌異》開卷第一篇。宋公被召至冥府應試城隍之職，神明出的考題只有八個字：</p>
+      <blockquote>一人二人，有心無心。</blockquote>
+    </div>
+    <div>
+      <p class="muted" style="max-width:none">宋公的答卷中，有一句被神明擊節稱賞、傳誦至今：</p>
+      <blockquote style="border-left-color:var(--color-primary);background:rgba(134,38,51,.07);color:var(--color-primary)">有心為善，雖善不賞；<br>無心為惡，雖惡不罰。</blockquote>
+      <p class="src" style="max-width:none">——〔清〕蒲松齡《聊齋誌異·考城隍》</p>
+    </div>
+  </div>
+</section>
+
+<!-- 兩種道德判斷提示 -->
+<section class="slide">
+  <h2>題一·提示：兩種道德判斷的尺</h2>
+  <div class="contrast2">
+    <div class="card">
+      <h3>看<b>存心／動機</b></h3>
+      <p>道德價值取決於<b>居心與意圖</b>（動機論／存心倫理，近於康德義務論）。「有心為善」之所以「不賞」，正因為它為求回報，存心已不純。</p>
+    </div>
+    <div class="card">
+      <h3>看<b>結果／後果</b></h3>
+      <p>道德價值取決於<b>行為造成的後果</b>（結果論／效益論）。從這把尺看，善行帶來好結果就該肯定，惡行造成傷害就該追究。</p>
+    </div>
+  </div>
+  <div class="practice" style="margin-top:.6em">
+    <span class="label">請討論</span>
+    <p style="margin:0;max-width:none">這句話為什麼<b>「論善從嚴、論惡從寬」</b>——對善，連結果好都可能「不賞」；對惡，只要無心就可「不罰」？兩把尺在善、惡上的運用<b>並不對稱</b>，這個不對稱說明了什麼？</p>
+  </div>
+</section>
+
+<!-- 考城隍 分組報告 QR -->
+<section class="slide">
+  <h2>題一報告：掃 QR，上傳你們組的結論</h2>
+  <p class="lead qr-intro">各組把「<b>兩種判斷如何詮釋考題＋你們對不對稱關係的說法</b>」打上來，報告時投影幕同步顯示。</p>
+  <div class="qr-stage">
+    <div class="qr-card" style="--c:#862633"><div class="qr-box" data-kg="1"></div><div class="qr-cap">第1組</div></div>
+    <div class="qr-card" style="--c:#A8782E"><div class="qr-box" data-kg="2"></div><div class="qr-cap">第2組</div></div>
+    <div class="qr-card" style="--c:#1E5F74"><div class="qr-box" data-kg="3"></div><div class="qr-cap">第3組</div></div>
+    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-kg="4"></div><div class="qr-cap">第4組</div></div>
+    <div class="qr-card" style="--c:#5C1A23"><div class="qr-box" data-kg="5"></div><div class="qr-cap">第5組</div></div>
+  </div>
+</section>
+
+<section class="slide gpage" style="--c:#862633"><h2><span class="g-dot"></span>第1組 · 考城隍的兩種道德判斷</h2><div class="gbox" id="kg1"></div><div class="daiuda" data-kg="1"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3daiK(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#A8782E"><h2><span class="g-dot"></span>第2組 · 考城隍的兩種道德判斷</h2><div class="gbox" id="kg2"></div><div class="daiuda" data-kg="2"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3daiK(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#1E5F74"><h2><span class="g-dot"></span>第3組 · 考城隍的兩種道德判斷</h2><div class="gbox" id="kg3"></div><div class="daiuda" data-kg="3"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3daiK(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#6B5635"><h2><span class="g-dot"></span>第4組 · 考城隍的兩種道德判斷</h2><div class="gbox" id="kg4"></div><div class="daiuda" data-kg="4"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3daiK(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#5C1A23"><h2><span class="g-dot"></span>第5組 · 考城隍的兩種道德判斷</h2><div class="gbox" id="kg5"></div><div class="daiuda" data-kg="5"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打一句，Enter 送出"><button class="btn" onclick="U3daiK(this.closest('.daiuda'))">送出</button></div></section>
+
+<!-- 題二 倫理學收穫 問題雲 -->
+<section class="slide">
+  <h2>題二：倫理學的收穫，與你還想釐清的</h2>
+  <p class="lead qr-intro">回顧這三學期的<b>基本倫理學</b>與<b>應用倫理學</b>。把你<b>還不清楚、想釐清</b>的概念，掃 QR 打上來，匯成一片「問題雲」，現場一起回應。</p>
+  <div class="cloud-stage">
+    <div class="cloud-side">
+      <div class="cloud-qr"><div class="qr-box" data-cloud="ethics"></div><div class="qr-cap">問題雲</div></div>
+      <p class="lead">已收到 <b id="cnt-ethics">0</b> 則</p>
+      <p class="src" id="fbStatus">○ 單機代打模式</p>
+    </div>
+    <div class="cloud-canvas-wrap">
+      <canvas id="cloud-ethics"></canvas>
+      <div class="cloud-empty" id="empty-ethics">掃 QR，把你想釐清的倫理學概念打上來，<br>它會即時長成一片雲。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 伍　價值思辨方法論 ===================== -->
+<section class="slide section-divider">
+  <div class="num">伍</div>
+  <h1>價值思辨方法論</h1>
+  <p class="when">東西方智慧累積下來、值得參考的六把尺。它們還不是一套完整理論，卻足以讓抉擇有所依憑。</p>
+</section>
+
+<section class="slide">
+  <h2>六把尺：價值思辨方法論總覽</h2>
+  <div class="method-grid">
+    <div class="method-card"><div class="mn">1</div><h3>不完整的拼圖</h3><p>沒有完美理論，但人生仍必須抉擇</p></div>
+    <div class="method-card"><div class="mn">2</div><h3>兩惡相權取其輕</h3><p>害之中取小，也是一種善</p></div>
+    <div class="method-card"><div class="mn">3</div><h3>基本人權</h3><p>維護人性尊嚴的底線價值</p></div>
+    <div class="method-card"><div class="mn">4</div><h3>比例原則</h3><p>更精緻的「兩惡相權」，違憲審查的核心</p></div>
+    <div class="method-card"><div class="mn">5</div><h3>正義原則</h3><p>等者等之、不等者不等之</p></div>
+    <div class="method-card"><div class="mn">6</div><h3>價值的一與多</h3><p>不以一害多，也不以多害一</p></div>
+  </div>
+</section>
+
+<!-- 1 不完整的拼圖 -->
+<section class="slide">
+  <h2>1. 不完整的拼圖</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">東西方累積的價值思辨方法，<b>還沒有形成一套完整嚴密的理論體系</b>。</p>
+      <ul class="fl">
+        <li>任何個別原則都可能被挑戰——目的論與義務論的論辯仍未結束</li>
+        <li>效益主義與正義論的糾葛，也仍在進行中</li>
+      </ul>
+      <blockquote>儘管如此——人生必須實踐，實踐必須抉擇，抉擇必須價值思辨。</blockquote>
+    </div>
+    <figure style="margin:0;text-align:center">
+      <img class="gimg" src="images/puzzle.jpg" alt="不完整的拼圖" style="width:100%;max-width:440px;max-height:54vh">
+    </figure>
+  </div>
+</section>
+
+<!-- 2 兩惡相權取其輕 -->
+<section class="slide">
+  <h2>2. 兩惡相權取其輕</h2>
+  <p class="lead" style="max-width:none">當沒有「全善」可選時，<b>害之中取其小</b>，本身就是一種善。東西方智者所見略同——</p>
+  <div class="thinker-row">
+    <div class="wc-with-caption">
+      <div class="wc-frame wc-aristotle"><img src="images/aristotle.jpg" alt="亞里斯多德" style="max-height:46vh;width:auto"></div>
+      <div class="wc-cap">Aristotle 亞里斯多德</div>
+    </div>
+    <div class="thinker-text">
+      <blockquote>「與大惡相比，較小的惡可以被認為是善；因為較小的惡比大惡更可取，而所有可取的都是善。」</blockquote>
+      <p class="src">——亞里斯多德《尼各馬可倫理學》</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>兩惡相權取其輕：東方的回響</h2>
+  <div class="grid3">
+    <div class="card"><h3>墨子</h3><blockquote style="font-size:1.1rem;margin:.3em 0">「斷指以存腕，利之中取大，害之中取小也。」</blockquote><p class="muted">害之中取小，非取害也，取利也。——《墨子·大取》</p></div>
+    <div class="card"><h3>孟子</h3><blockquote style="font-size:1.1rem;margin:.3em 0">「嫂溺援之以手者，權也。」</blockquote><p class="muted">嫂嫂的生命，比「男女授受不親」之禮更重——這就是權變。</p></div>
+    <div class="card"><h3>孔子</h3><blockquote style="font-size:1.1rem;margin:.3em 0">「可與立，未可與權。」</blockquote><p class="muted">能堅守原則，未必能在兩難中權衡——《論語·子罕》</p></div>
+  </div>
+  <blockquote style="margin-top:.5em">朱熹：「常道人皆可守，<b>權非體道者不能用也</b>。」——權衡輕重，需要智慧。</blockquote>
+</section>
+
+<section class="slide">
+  <h2>兩惡相權，也有正反爭論</h2>
+  <div class="contrast2">
+    <div class="card pro-card">
+      <h3>支持：電車難題</h3>
+      <p>軌道上五人 vs 一人，轉轍犧牲一人救五人——多數人直覺認為，這裡「兩惡相權取其輕」站得住。</p>
+    </div>
+    <div class="card con-card">
+      <h3>反對：器官移植難題</h3>
+      <p>能否殺一名健康者，取其器官救五名病人？絕大多數人說<b>不行</b>。</p>
+    </div>
+  </div>
+  <blockquote style="margin-top:.5em">關鍵反思：器官移植難題真能反駁「兩惡相權」嗎？在一般醫療情境，生命不能被量化比較；之所以不允許殺一救五，<b>不是因為這個比較，而是因為醫病關係將從此變得不可能</b>。</blockquote>
+</section>
+
+<!-- 3 基本人權 -->
+<section class="slide">
+  <h2>3. 基本人權</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none"><b>意義</b>：個人或群體「作為人」與生俱有的權利，涉及維護人性尊嚴最重要的價值，如生命與自由。</p>
+      <ul class="fl">
+        <li><b>《世界人權宣言》</b>（1948.12.10 聯合國大會通過）——確立人權為憲法、國際法的規範性標準</li>
+        <li><b>德國基本法第 1 條</b>：人的尊嚴不可侵犯，尊重與保護它是所有國家機關的責任</li>
+        <li><b>我國憲法第 7–21 條</b>：平等權、人身自由、言論、信仰、生存權、工作權……</li>
+      </ul>
+    </div>
+    <figure style="margin:0;text-align:center">
+      <img class="gimg" src="images/udhr.jpg" alt="世界人權宣言" style="width:100%;max-width:340px;max-height:48vh;object-fit:contain;background:#fff">
+      <figcaption class="src">《世界人權宣言》</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 比例原則 -->
+<section class="slide">
+  <h2>4. 比例原則</h2>
+  <p class="lead" style="max-width:none">比例原則是更精緻的「兩惡相權取其輕」，是法學上判斷法律、判決、政府干預<b>是否合憲</b>的最主要方法。衍生原則：<b>應然以能夠為前提（Ought Implies Can）</b>。</p>
+  <ul class="fl" style="margin-top:.2em">
+    <li><b>憲法第 22 條</b>：人民之自由權利，不妨害社會秩序公共利益者，均受保障</li>
+    <li><b>憲法第 23 條</b>：除為防止妨礙他人自由、避免緊急危難、維持秩序或增進公益所必要者外，不得以法律限制之</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>比例原則：合憲審查的四個條件</h2>
+  <ol class="feature-list">
+    <li><b>立法目的正當性</b>（legitimer Regelungszweck）——關鍵在於是否促進重大公共利益</li>
+    <li><b>手段適當性</b>（Geeignetheit）——所採手段是否確能達成該目的</li>
+    <li><b>手段必要性</b>（Erforderlichkeit）——有無其他「更小侵害」的手段也能達標（最小限制原則）</li>
+    <li><b>狹義比例原則</b>（Angemessenheit）——手段與所追求的目的之間，是否合乎比例</li>
+  </ol>
+  <p class="muted" style="max-width:none">個別基本人權代表重大價值與法益；當它們衝突競合時，依比例原則定出優先次序。</p>
+</section>
+
+<!-- 5 正義原則 -->
+<section class="slide">
+  <h2>5. 正義原則</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">什麼是正義，本身就極複雜；追求正義與效益是否矛盾，也不易回答。但正義與比例原則，很可能<b>相輔相成</b>。</p>
+      <blockquote>Equal to equal,<br>unequal to unequal.<br><span style="font-size:.7em">等者等之，不等者不等之。</span></blockquote>
+    </div>
+    <div>
+      <ul class="fl">
+        <li>齊頭式平等 = 正義嗎？差別待遇 = 歧視嗎？</li>
+        <li><b>羅爾斯差異原則</b>：只有當不平等「有利於最弱勢者」，才被允許</li>
+        <li><b>平權措施</b>（affirmative action）究竟公不公平？</li>
+      </ul>
+      <p class="muted">正義原則，需要不同觀點都有公平表達的機會——<b>對話倫理與審議式民主</b>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 價值的一與多 -->
+<section class="slide">
+  <h2>6. 價值的一與多</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <div class="big-q" style="max-width:none">一中有多，<br>多中有一。</div>
+      <p class="muted" style="max-width:none;margin-top:.4em"><b>一</b>＝普遍、客觀、絕對；<b>多</b>＝個別、主觀、相對。</p>
+      <blockquote>不要以一害多，<br>也不要以多害一。</blockquote>
+    </div>
+    <div>
+      <p class="lead" style="max-width:none">以飲食為例——金字塔飲食、生酮飲食、肉食……每個人體質不同，會有<b>個別差異（多）</b>。</p>
+      <p class="muted" style="max-width:none">但個別差異中，仍有<b>普遍共通（一）</b>：例如「最傷腎的食物」前幾名，幾乎人人適用。</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>「一」與「多」的實例：傷腎食物排行</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">飲食選擇有強烈的個別差異，但「傷腎魔王」這類普遍規律，提供了跨越差異的<b>共通底線</b>。</p>
+      <p class="muted">價值思辨也是如此：尊重個別處境，但不放棄尋找可普遍化的原則。</p>
+    </div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/ZS571kxDcVw" title="傷腎食物排行" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 陸　當前重大價值爭議 ===================== -->
+<section class="slide section-divider">
+  <div class="num">陸</div>
+  <h1>當前重大價值爭議</h1>
+  <p class="when">把六把尺帶進這個時代最棘手的爭議——這正是價值思辨真正派上用場的地方。</p>
+</section>
+
+<section class="slide">
+  <h2>這個時代，正在爭論這些</h2>
+  <div class="grid3">
+    <div class="card compact"><h3>生命與死亡</h3><p>存在虛無主義與生育；從「生命絕對保護」到「意志絕對保護」（安樂死、死亡自決權）。</p></div>
+    <div class="card compact"><h3>親密與性</h3><p>婚前性親密還有界線嗎？多邊戀（Polyamory）關係的興起。</p></div>
+    <div class="card compact"><h3>認同的邊界</h3><p>從性別認同，到 Neo-pronoun、跨物種認同（Otherkin / Therian）。</p></div>
+    <div class="card compact"><h3>政治與社會</h3><p>政治正確、覺醒主義（Wokeism）與取消文化；民主或民粹；後真相與認知作戰。</p></div>
+    <div class="card compact"><h3>制度與未來</h3><p>轉型正義、統獨議題；大學自治與未來大學。</p></div>
+    <div class="card compact"><h3>共同的問句</h3><p>當傳統規範被逐一解構，我們憑什麼，重新立下新的判準？</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>爭議一：存在虛無主義與生育</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <p class="lead" style="max-width:none">「<b>不曾存在，會不會更好？</b>」——當虛無主義蔓延，連「生育是否負責任」都成了爭論。</p>
+      <p class="muted">這正回扣了「終極信念」：對存有與虛無的根本判斷，會一路滲透到最具體的人生抉擇。</p>
+    </div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/cckBow0fDGg" title="Better to Have Never Existed - Jordan Peterson" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+  <p class="src" style="text-align:center;max-width:none">Prof. Jordan Peterson, "Better to Have Never Existed?"</p>
+</section>
+
+<section class="slide">
+  <h2>爭議二：從「生命絕對保護」到「意志絕對保護」</h2>
+  <table class="tbl">
+    <thead><tr><th>原則</th><th>內涵</th></tr></thead>
+    <tbody>
+      <tr><td class="lv">生命絕對保護</td><td>刑法殺人罪章保護每一個人的生命法益，不分強弱、健康與否、有無求生意念（刑法第 275 條加工自殺罪）。</td></tr>
+      <tr><td class="lv">原則保護生命<br>例外保護自主</td><td>病人自主權利法在 5 種臨床條件下，允許病人拒絕維生治療／人工營養——當疾病無法治癒、痛苦難忍、無更好辦法時，比例原則允許例外。</td></tr>
+      <tr><td class="lv">意志絕對保護</td><td>2011 Haas v. Switzerland 歐洲人權法院接受死亡自決權；2020.2.20 德國聯邦憲法法院判協助自殺罪違憲，承認人在任何狀況皆有死亡自決權。</td></tr>
+    </tbody>
+  </table>
+  <p class="muted" style="max-width:none">同一個「生命 vs 自主」的張力，在不同終極理想下，被排序成截然不同的法制。</p>
+</section>
+
+<section class="slide">
+  <h2>爭議三：政治正確、覺醒主義與取消文化</h2>
+  <div class="grid2" style="align-items:center">
+    <div>
+      <ul class="fl">
+        <li><b>政治正確</b>：尊重弱勢與少數，避免有形無形的壓迫——但糾正他人「不正確」時，是否也隱含一種道德優越與綁架？</li>
+        <li><b>取消文化</b>：爭議在於，被取消者往往非因犯法，而因價值觀不合，就被集體迫使噤聲、退場。</li>
+      </ul>
+      <p class="muted" style="max-width:none">重點不在選邊，而在：透過更多對話與思考，理解自己為何持有現在的觀點。</p>
+    </div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/fvPgjg201w0" title="Professor Against Political Correctness" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- 總結反思 -->
+<section class="slide">
+  <h2>總結反思：我們身處什麼樣的時代？</h2>
+  <ul class="fl">
+    <li>一個傳統規範被<b>系統性解構</b>的時代</li>
+    <li>一個道德底線<b>沒有底線</b>的時代</li>
+    <li>一個強調個人權利、卻<b>忽視責任承擔</b>的時代</li>
+    <li>一個<b>自由而自私</b>的時代</li>
+    <li>一個——<b>非體道者不能與權</b>的價值思辨時代</li>
+  </ul>
+  <p class="muted" style="max-width:none">正因如此，價值思辨不能只是技術；它需要終極理想作根、需要智慧去權衡。這，就是今天的功課。</p>
+</section>
+
+<!-- 結語 -->
+<section class="slide closing">
+  <div class="ending-line">人生無常，唯愛永恆</div>
+  <div class="ending-ornament"></div>
+  <div class="ending-sub">願你在每一個十字路口，<br>都認得出那盞不滅的燈，知道該往哪邊走。</div>
+  <div class="signature">單元三 · 價值思辨</div>
+  <button class="back-home-btn" onclick="goToSlide(1)">↑　回到首頁</button>
+</section>
+
+<!-- 彩蛋·主題曲（末頁） -->
+<section class="slide eggsong">
+  <svg class="egg-deco egg-deco-tr" viewBox="0 0 140 140" aria-hidden="true">
+    <g stroke="#C9A227" stroke-width="6" fill="none" stroke-linecap="round"><path d="M46 104 V40"/><path d="M104 92 V28"/></g>
+    <path d="M44 40 L106 28" stroke="#C9A227" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <ellipse cx="38" cy="106" rx="14" ry="10" fill="#C9A227" transform="rotate(-20 38 106)"/>
+    <ellipse cx="96" cy="94" rx="14" ry="10" fill="#C9A227" transform="rotate(-20 96 94)"/>
+  </svg>
+  <svg class="egg-deco egg-deco-bl" viewBox="0 0 120 140" aria-hidden="true">
+    <path d="M56 104 V36 q0 -18 24 -24" stroke="#C9A227" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <ellipse cx="44" cy="106" rx="14" ry="10" fill="#C9A227" transform="rotate(-20 44 106)"/>
+    <circle cx="96" cy="20" r="6" fill="#D4AF37"/><circle cx="18" cy="58" r="4" fill="#D4AF37"/><circle cx="104" cy="58" r="3.5" fill="#D4AF37"/>
+  </svg>
+  <h2>彩蛋·主題曲〈在十字路口〉</h2>
+  <div class="lyrics">
+    <p><span class="h">〔主歌一〕</span><br>紅燈轉綠　只有三秒鐘<br>方向盤在手　左邊五個人　右邊是一個<br>沒有人告訴我　哪一邊才對<br>時間不等我　我得選一個</p>
+    <p><span class="h">〔導歌〕</span><br>有人說　算一算誰的命比較多<br>有人說　規則不能破　就算天塌下來<br>有人說　看你是個什麼樣的人<br>吵成一片　路口的燈　還在閃</p>
+    <p><span class="h">〔副歌〕</span><br>我站在十字路口<br>每一條路　都通向一個我要負責的明天<br>我站在十字路口<br>選擇沒有彩排　也沒有重來的那一遍<br>但若我心裡　有一盞不滅的燈<br>再難的路口　我也認得出　該往哪邊走<br>該怎麼活——不是猜，是選</p>
+    <p><span class="h">〔主歌二〕</span><br>誠實，還是慈悲<br>門口站著兇手　問我朋友藏在哪裡<br>說真話送他去死　說謊話背叛了原則<br>原來每一個答案　都標好了代價</p>
+    <p><span class="h">〔橋段〕</span><br>若沒有北極星　所有方向都一樣<br>若什麼都可以　那就什麼都不算數<br>先想清楚　我究竟要去哪裡——<br>路，才會浮現</p>
+    <p><span class="h">〔尾聲〕</span><br>我站在十字路口<br>這一次　我睜開眼睛　選</p>
+  </div>
+  <p class="src">〈在十字路口〉——《生命的學問》概念專輯第三首；橋段「若沒有北極星…」即「價值思辨必須緊扣終極理想」的歌詞化。</p>
+  <button class="back-home-btn" onclick="goToSlide(1)">↑　回到首頁</button>
+</section>
+
+</div>
+
+<div class="click-zones" id="clickZones">
+  <div class="click-zone" onclick="prevSlide()" title="前一頁"></div>
+  <div class="click-zone" onclick="nextSlide()" title="下一頁"></div>
+</div>
+<div class="progress-bar" id="progress"></div>
+<div class="page-indicator"><span id="curr">1</span> / <span id="total">1</span></div>
+<div class="nav-arrows"><button onclick="prevSlide()" aria-label="上一頁">‹</button><button onclick="nextSlide()" aria-label="下一頁">›</button></div>
+<button class="fs-toggle" onclick="toggleFullscreen()" title="全螢幕（F）">⛶</button>
+<div class="toast" id="toast"></div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let current=1;const total=slides.length;
+document.getElementById('total').textContent=total;
+slides.forEach(s=>{const fw=document.createElement('div');fw.className='fitwrap';while(s.firstChild)fw.appendChild(s.firstChild);s.appendChild(fw);});
+function fitSlide(s){
+  const fw=s.firstElementChild;if(!fw||!fw.classList.contains('fitwrap'))return;
+  fw.style.transform='none';
+  const cs=getComputedStyle(s);
+  const availW=s.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+  const availH=s.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+  const ph=fw.style.height,pj=fw.style.justifyContent;
+  fw.style.height='auto';fw.style.justifyContent='flex-start';
+  const natH=fw.scrollHeight,natW=fw.scrollWidth;
+  fw.style.height=ph;fw.style.justifyContent=pj;
+  let k=Math.min(1,availH/natH,availW/natW);
+  k=Math.floor(k*995)/1000;
+  fw.style.transform=k<1?'scale('+k+')':'';
+}
+function fitAll(){slides.forEach(fitSlide);}
+window.addEventListener('resize',fitAll);
+window.addEventListener('orientationchange',()=>setTimeout(fitAll,80));
+document.addEventListener('fullscreenchange',()=>setTimeout(fitAll,80));
+window.addEventListener('load',()=>setTimeout(fitAll,60));
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitAll);
+fitAll();
+(function assignSectionTints(){
+  const numerals=['壹','貳','參','肆','伍','陸','柒'];
+  let chap=0;
+  slides.forEach(s=>{
+    if(s.classList.contains('section-divider')){chap++;return;}
+    if(s.classList.contains('cover')||s.classList.contains('closing')||s.classList.contains('eggsong'))return;
+    if(chap<1)return;
+    const sec=Math.min(chap,7);
+    s.classList.add('sec-tint','sec-'+sec);
+    s.dataset.chap=numerals[sec-1];
+  });
+})();
+const noClickZoneSlides=[];
+slides.forEach((s,i)=>{if(s.classList.contains('cover')||s.classList.contains('closing')||s.querySelector('iframe,video,.cover-cta,.back-home-btn,.daiuda,.qr-box'))noClickZoneSlides.push(i+1);});
+const CLOUD_SLIDES=[];
+slides.forEach((s,i)=>{if(s.querySelector('.cloud-canvas-wrap canvas'))CLOUD_SLIDES.push(i+1);});
+function showSlide(n){
+  if(n<1)n=1;if(n>total)n=total;
+  slides.forEach((s,i)=>{s.classList.remove('active','prev');if(i+1===n)s.classList.add('active');else if(i+1<n)s.classList.add('prev');});
+  current=n;
+  document.getElementById('curr').textContent=current;
+  document.getElementById('progress').style.width=(current/total*100)+'%';
+  history.replaceState(null,'','#'+current);
+  document.body.classList.toggle('no-clickzones',noClickZoneSlides.includes(n));
+  if(window.U3&&CLOUD_SLIDES.includes(n))U3.refreshClouds();
+}
+function nextSlide(){showSlide(current+1)}function prevSlide(){showSlide(current-1)}function goToSlide(n){showSlide(n)}
+function getFsReq(el){return el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen||null}
+function getFsExit(){return document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen||null}
+function isFs(){return document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement}
+function enterFs(el){const r=getFsReq(el);if(!r){showToast('此瀏覽器不支援全螢幕，請按 F11',4000);return Promise.reject()}let p;try{p=r.call(el)}catch(e){return Promise.reject(e)}return(p&&p.then)?p:Promise.resolve()}
+function toggleFullscreen(){if(isFs()){const x=getFsExit();if(x)x.call(document);return}enterFs(document.documentElement).catch(()=>{showToast(window.self!==window.top?'預覽面板內無法全螢幕，請在新分頁開啟':'無法進入全螢幕，請按 F11',4500)})}
+function startPresentation(){enterFs(document.documentElement).catch(()=>{showToast('預覽面板內無法全螢幕，請在新分頁開啟，或按 F11',6000)}).finally(()=>nextSlide())}
+function showToast(m,ms=2500){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),ms)}
+document.addEventListener('keydown',e=>{
+  if(e.target&&/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();nextSlide();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prevSlide()}
+  if(e.key==='f'||e.key==='F'){e.preventDefault();toggleFullscreen()}
+  if(e.key==='Escape'&&isFs())(getFsExit()||(()=>{})).call(document);
+  if(e.key==='Home')goToSlide(1);if(e.key==='End')goToSlide(total);
+});
+if(location.hash){const n=parseInt(location.hash.slice(1));if(!isNaN(n))showSlide(n);}
+else{document.body.classList.toggle('no-clickzones',noClickZoneSlides.includes(1));}
+</script>
+
+<!-- ===================== 單元三 Firebase 即時互動 ===================== -->
+<script>
+window.U3=(function(){
+  const ROOM=window.FB_ROOM||'default';
+  const esc=s=>String(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  const BASE=location.origin+location.pathname.replace(/[^/]*$/,'');
+  const SUBMIT=BASE+'submit.html', ASK=BASE+'ask.html';
+  const configured=()=>window.FB_CONFIG&&FB_CONFIG.apiKey&&FB_CONFIG.apiKey.indexOf('PASTE')<0;
+  const listify=o=>o?Object.keys(o).sort((a,b)=>(o[a].t||0)-(o[b].t||0)).map(k=>o[k].txt):[];
+  let root=null, online=false;
+  let PRE={1:[],2:[],3:[],4:[],5:[]};   // 課前作業五組
+  let KAO={1:[],2:[],3:[],4:[],5:[]};   // 考城隍五組
+  let CLOUDS={ethics:[]};               // 倫理學問題雲
+  const LK='u3_'+ROOM;
+
+  function loadLocal(){try{const d=JSON.parse(localStorage.getItem(LK));if(d){PRE=d.PRE||PRE;KAO=d.KAO||KAO;CLOUDS=d.CLOUDS||CLOUDS;}}catch(e){}}
+  function saveLocal(){try{localStorage.setItem(LK,JSON.stringify({PRE,KAO,CLOUDS}));}catch(e){}}
+
+  function initFB(){
+    if(!configured()||typeof firebase==='undefined')return false;
+    try{
+      firebase.initializeApp(window.FB_CONFIG);
+      root=firebase.database().ref('rooms/'+ROOM);
+      [1,2,3,4,5].forEach(g=>root.child('prologue/g'+g).on('value',s=>{PRE[g]=listify(s.val()||{});renderPre(g);}));
+      [1,2,3,4,5].forEach(g=>root.child('kaocheng/g'+g).on('value',s=>{KAO[g]=listify(s.val()||{});renderKao(g);}));
+      ['ethics'].forEach(p=>root.child('clouds/'+p).on('value',s=>{CLOUDS[p]=listify(s.val()||{});renderCloud(p);}));
+      online=true; setStatus();
+      return true;
+    }catch(e){return false;}
+  }
+  function renderPre(g){
+    const box=document.getElementById('pg'+g); if(!box)return;
+    const a=PRE[g]||[];
+    box.innerHTML=a.length?a.map(t=>`<div class="gitem">${esc(t)}</div>`).join('')
+      :'<div class="empty-hint">掃 QR 在手機寫下「全組最有共鳴或最有爭議的一點」，這裡會即時出現。</div>';
+  }
+  function renderKao(g){
+    const box=document.getElementById('kg'+g); if(!box)return;
+    const a=KAO[g]||[];
+    box.innerHTML=a.length?a.map(t=>`<div class="gitem">${esc(t)}</div>`).join('')
+      :'<div class="empty-hint">掃 QR 上傳「兩種判斷的詮釋＋不對稱關係」，這裡會即時出現。</div>';
+  }
+  let wcPending={};
+  function renderCloud(p){
+    if(wcPending[p])return; wcPending[p]=true;
+    requestAnimationFrame(()=>{wcPending[p]=false;doRenderCloud(p);});
+  }
+  function doRenderCloud(p){
+    const canvas=document.getElementById('cloud-'+p); if(!canvas)return;
+    const wrap=canvas.parentElement, empty=document.getElementById('empty-'+p), cnt=document.getElementById('cnt-'+p);
+    const texts=CLOUDS[p]||[];
+    if(cnt)cnt.textContent=texts.length;
+    const freq={}; texts.forEach(t=>{const w=(t||'').trim();if(w)freq[w]=(freq[w]||0)+1;});
+    const entries=Object.entries(freq);
+    if(!entries.length){if(empty)empty.style.display='flex';const ctx=canvas.getContext('2d');canvas.width=canvas.width;if(ctx)ctx.clearRect(0,0,canvas.width,canvas.height);return;}
+    if(empty)empty.style.display='none';
+    const rect=wrap.getBoundingClientRect();
+    let w=Math.floor(rect.width),h=Math.floor(rect.height);
+    if(w<100)w=Math.floor(window.innerWidth*0.55); if(h<100)h=Math.floor(window.innerHeight*0.55);
+    canvas.width=w;canvas.height=h;canvas.style.width='100%';canvas.style.height='100%';
+    const maxF=entries.reduce((m,e)=>Math.max(m,e[1]),1);
+    const list=entries.sort((a,b)=>b[1]-a[1]);
+    const palette=['#862633','#A8782E','#1E5F74','#6B5635','#5C1A23','#B8860B'];
+    const base=Math.max(13,Math.min(w,h)/24);
+    if(typeof WordCloud==='function'){try{WordCloud(canvas,{list:list,gridSize:Math.max(4,Math.round(w/60)),weightFactor:n=>base*(0.85+0.6*(n/maxF))*(1+0.15*Math.min(n-1,5)),fontFamily:'"Noto Serif TC",serif',color:()=>palette[Math.floor(Math.random()*palette.length)],rotateRatio:0.16,rotationSteps:2,backgroundColor:'transparent',drawOutOfBound:false,shrinkToFit:true,minSize:12});}catch(e){}}
+  }
+  function refreshClouds(){['ethics'].forEach(renderCloud);}
+
+  function dai(row){
+    const g=row.getAttribute('data-pg'); const inp=row.querySelector('input'); const txt=(inp.value||'').trim(); if(!txt)return;
+    if(root){root.child('prologue/g'+g).push({txt,t:Date.now()});}
+    else{PRE[g].push(txt);saveLocal();renderPre(g);}
+    inp.value='';inp.focus();
+  }
+  function daiK(row){
+    const g=row.getAttribute('data-kg'); const inp=row.querySelector('input'); const txt=(inp.value||'').trim(); if(!txt)return;
+    if(root){root.child('kaocheng/g'+g).push({txt,t:Date.now()});}
+    else{KAO[g].push(txt);saveLocal();renderKao(g);}
+    inp.value='';inp.focus();
+  }
+  window.U3dai=dai; window.U3daiK=daiK;
+
+  function makeQRs(){
+    if(typeof QRCode==='undefined')return;
+    document.querySelectorAll('.qr-box[data-pg]').forEach(b=>{const g=b.getAttribute('data-pg');b.innerHTML='';try{new QRCode(b,{text:SUBMIT+'?r=prologue&g='+g,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}catch(e){}});
+    document.querySelectorAll('.qr-box[data-kg]').forEach(b=>{const g=b.getAttribute('data-kg');b.innerHTML='';try{new QRCode(b,{text:SUBMIT+'?r=kaocheng&g='+g,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}catch(e){}});
+    document.querySelectorAll('.qr-box[data-cloud]').forEach(b=>{const p=b.getAttribute('data-cloud');b.innerHTML='';try{new QRCode(b,{text:ASK+'?p='+p,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}catch(e){}});
+  }
+  function setStatus(){const el=document.getElementById('fbStatus');if(!el)return;el.textContent=root?(online?'● 線上（手機投稿即時更新）':'● 連線中…'):'○ 單機代打模式（未連網）';}
+
+  function clearCurrent(){
+    const active=document.querySelector('.slide.active'); if(!active)return;
+    const canv=active.querySelector('.cloud-canvas-wrap canvas');
+    if(canv){const p=canv.id.replace('cloud-','');if(root){root.child('clouds/'+p).remove();}else{CLOUDS[p]=[];saveLocal();renderCloud(p);}showToast('已清空此頁文字雲',1800);return;}
+    const pg=active.querySelector('.gbox[id^="pg"]');
+    if(pg){const g=pg.id.replace('pg','');if(root){root.child('prologue/g'+g).remove();}else{PRE[g]=[];saveLocal();renderPre(g);}showToast('已清空第'+g+'組（課前作業）',1800);return;}
+    const kg=active.querySelector('.gbox[id^="kg"]');
+    if(kg){const g=kg.id.replace('kg','');if(root){root.child('kaocheng/g'+g).remove();}else{KAO[g]=[];saveLocal();renderKao(g);}showToast('已清空第'+g+'組（考城隍）',1800);return;}
+    showToast('此頁沒有可清空的互動資料',2200);
+  }
+  function nowStamp(){var d=new Date(),p=n=>(n<10?'0':'')+n;return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());}
+  function csvCell(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"';}
+  function downloadCSV(stamp){
+    var rows=[['房號','區段','組別','內容']];
+    [1,2,3,4,5].forEach(g=>(PRE[g]||[]).forEach(t=>rows.push([ROOM,'課前作業精華','第'+g+'組',t])));
+    [1,2,3,4,5].forEach(g=>(KAO[g]||[]).forEach(t=>rows.push([ROOM,'考城隍討論','第'+g+'組',t])));
+    (CLOUDS.ethics||[]).forEach(t=>rows.push([ROOM,'倫理學問題雲','全班',t]));
+    var csv=rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
+    var blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='單元三價值思辨_'+ROOM+'_'+stamp+'.csv';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1500);
+  }
+  function exportAndClear(){
+    var stamp=nowStamp();
+    downloadCSV(stamp);
+    if(!confirm('本場互動資料已下載成 CSV（存在這台電腦的「下載」資料夾）。要現在把本場全部清空、房間掃乾淨嗎？')){showToast('已下載備份，未清空',2500);return;}
+    if(root){
+      root.once('value').then(snap=>{
+        var val=snap.val(),fin=()=>{root.remove();showToast('已下載 CSV＋雲端封存，並清空本場',3000);};
+        if(val){firebase.database().ref('rooms/_archives/'+ROOM+'__'+stamp).set(val).then(fin,fin);}else fin();
+      });
+    }else{PRE={1:[],2:[],3:[],4:[],5:[]};KAO={1:[],2:[],3:[],4:[],5:[]};CLOUDS={ethics:[]};saveLocal();[1,2,3,4,5].forEach(g=>{renderPre(g);renderKao(g);});refreshClouds();showToast('已下載 CSV 並清空本場（本機）',3000);}
+  }
+
+  function initAll(){
+    document.querySelectorAll('.daiuda input').forEach(inp=>inp.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter'){const row=inp.closest('.daiuda');row.hasAttribute('data-pg')?dai(row):daiK(row);}}));
+    document.addEventListener('keydown',e=>{if(!e.shiftKey)return;if(e.key==='C'||e.key==='c'){e.preventDefault();clearCurrent();}else if(e.key==='E'||e.key==='e'){e.preventDefault();exportAndClear();}});
+    if(!initFB())loadLocal();
+    [1,2,3,4,5].forEach(g=>{renderPre(g);renderKao(g);});
+    refreshClouds(); makeQRs(); setStatus();
+  }
+  if(document.readyState!=='loading')initAll();else document.addEventListener('DOMContentLoaded',initAll);
+  return {refreshClouds};
+})();
+</script>
+</body>
+</html>
