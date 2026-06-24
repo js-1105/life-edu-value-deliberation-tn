@@ -63,7 +63,15 @@ button.send:active{transform:translateY(1px);opacity:.9}
     document.getElementById('blkMain').style.borderTopColor=C;
     document.title='第'+g+'組 考城隍 · 投稿';
   }else{
-    document.getElementById('gSub').textContent='課前兩題·把全組最有感的一點打上來';
+    var q1=(Number(g)<=3);
+    document.getElementById('gSub').textContent=q1?'第一題·卡繆會怎麼選':'第二題·飲食指南改了什麼';
+    document.getElementById('introTxt').innerHTML=q1
+      ? '你們這一組討論<b>第一題：卡繆會怎麼選（正義與母親的抉擇、與存在虛無主義的關連）</b>。把全組討論的<b>精華</b>都打上來——重點、不同立場與理由都記下來，<b>不只一句、可分多次送出</b>，即時出現在投影幕你們這一組的頁面。'
+      : '你們這一組討論<b>第二題：美國《2025–2030 飲食指南》vs 飲食金字塔</b>。把全組討論的<b>精華</b>都打上來——重點、不同立場與理由都記下來，<b>不只一句、可分多次送出</b>，即時出現在投影幕你們這一組的頁面。';
+    document.getElementById('lblMain').textContent=q1?'① 我們對第一題的討論精華':'① 我們對第二題的討論精華';
+    document.getElementById('main').placeholder=q1
+      ? '例：卡繆會選母親還是正義？我們的理由是……；他的存在虛無主義如何影響這個選擇……（把討論重點都記下來，可分多次送出）'
+      : '例：新版指南和飲食金字塔最大的不同是……；和我們習慣的飲食觀的出入是……；我們的反思是……（把討論重點都記下來，可分多次送出）';
     document.title='第'+g+'組 課前作業 · 投稿';
   }
   function esc(s){return String(s||'').replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
