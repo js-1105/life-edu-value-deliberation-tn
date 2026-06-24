@@ -115,6 +115,7 @@ ul.fl li::before{content:"";position:absolute;left:0;top:1.05em;width:.7em;heigh
 .wc-mengzi{--wc1:#EDF1E8;--wc2:#D9E4CE}
 .wc-kongzi{--wc1:#F6EFDD;--wc2:#EBDDBE}
 .wc-zhuzi{--wc1:#EFEAE0;--wc2:#E0D3BC}
+.wc-camus{--wc1:#E7EDF2;--wc2:#CFDCE8}
 .wc-cap{margin-top:.6em;font-family:var(--font-serif);font-style:italic;font-size:clamp(1.1rem,1.5vw,1.5rem);color:var(--color-muted);text-align:center;letter-spacing:.03em}
 /* 影片 */
 .video-wrap{position:relative;z-index:60;width:100%;max-width:560px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-strong);margin:.3em 0;background:#000}
@@ -296,6 +297,74 @@ body.no-clickzones .click-zones{display:none}
 <section class="slide gpage" style="--c:#6B5635"><h2><span class="g-dot"></span>第4組 · 第二題 飲食指南改了什麼</h2><div class="gbox" id="pg4"></div><div class="daiuda" data-pg="4"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
 <section class="slide gpage" style="--c:#5C1A23"><h2><span class="g-dot"></span>第5組 · 第二題 飲食指南改了什麼</h2><div class="gbox" id="pg5"></div><div class="daiuda" data-pg="5"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
 <section class="slide gpage" style="--c:#3E7D5A"><h2><span class="g-dot"></span>第6組 · 第二題 飲食指南改了什麼</h2><div class="gbox" id="pg6"></div><div class="daiuda" data-pg="6"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
+
+<!-- 第一題 簡要答覆：卡繆 -->
+<section class="slide">
+  <h2>第一題參考：卡繆會怎麼選？</h2>
+  <div class="grid2" style="align-items:center;gap:3vw">
+    <figure style="margin:0;text-align:center">
+      <span class="wc-frame wc-camus" style="display:inline-block"><img src="images/camus_wc.jpg" alt="卡繆 Albert Camus" style="display:block;width:100%;max-width:280px;max-height:38vh;border-radius:12px"></span>
+      <blockquote style="margin:.7em 0 .2em;font-size:clamp(1.2rem,1.6vw,1.6rem);text-align:left">「我一向譴責恐怖。但此刻有人在阿爾及爾的電車上放炸彈，我的母親可能就在那班車上。如果這就是正義，我寧可選擇我的母親。」</blockquote>
+      <figcaption class="src">——卡繆，1957 年於斯德哥爾摩領諾貝爾獎期間，回應一名阿爾及利亞學生</figcaption>
+    </figure>
+    <div>
+      <ul class="fl">
+        <li><b>他會選母親</b>——但重點不是親情高於正義，而是<b>拒絕「以正義之名、盲目傷害無辜」的恐怖</b>；流行的「正義 vs 母親二選一」其實是被簡化的誤引。</li>
+        <li><b>背景</b>：阿爾及利亞戰爭陷入恐怖與報復的螺旋，而卡繆的母親就住在阿爾及爾。</li>
+        <li><b>與存在虛無主義的關連</b>：他直面「<b>荒謬</b>」（宇宙沒有現成的終極意義），卻<b>拒絕滑向虛無主義</b>——不接受「既然無意義，為了理念就什麼都可以」。</li>
+        <li>《反抗者》以<b>具體的人、不傷無辜</b>為價值底線：「我反抗，故我們存在。」<b>存在的虛無，不必然導致道德的虛無。</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 第二題 簡要答覆：兩個飲食金字塔對比 -->
+<section class="slide">
+  <h2>第二題參考：兩個飲食金字塔</h2>
+  <div class="grid2" style="align-items:start;gap:2.5vw;flex:none">
+    <div style="text-align:center">
+      <h3 style="margin:0 0 .2em;color:var(--color-primary)">原本的飲食金字塔</h3>
+      <svg viewBox="0 0 320 270" style="width:100%;max-width:320px;max-height:27vh" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC',sans-serif">
+        <polygon points="160,12 195,70 125,70" fill="#E6A892"/>
+        <polygon points="125,70 195,70 230,130 90,130" fill="#E9C9A6"/>
+        <polygon points="90,130 230,130 265,190 55,190" fill="#CDE3C0"/>
+        <polygon points="55,190 265,190 300,250 20,250" fill="#E8D9B0"/>
+        <g font-size="13" fill="#3a2f25" text-anchor="middle">
+          <text x="160" y="60">油脂・糖</text>
+          <text x="160" y="105">奶・肉・蛋白</text>
+          <text x="160" y="165">蔬菜・水果</text>
+          <text x="160" y="225" font-weight="700">穀類・澱粉（最多）</text>
+        </g>
+      </svg>
+      <p class="src" style="margin-top:.2em">澱粉為基底，油脂與糖在頂端少量</p>
+    </div>
+    <div style="text-align:center">
+      <h3 style="margin:0 0 .2em;color:var(--color-primary)">2025–2030 新版（上下顛倒）</h3>
+      <svg viewBox="0 0 320 270" style="width:100%;max-width:320px;max-height:27vh" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC',sans-serif">
+        <polygon points="20,12 300,12 265,70 55,70" fill="#DD9173"/>
+        <polygon points="55,70 265,70 230,130 90,130" fill="#CDE3C0"/>
+        <polygon points="90,130 230,130 195,190 125,190" fill="#E8D9B0"/>
+        <polygon points="125,190 195,190 160,250" fill="#C9B6D8"/>
+        <g font-size="13" fill="#3a2f25" text-anchor="middle">
+          <text x="160" y="47" font-weight="700">優質蛋白＋健康脂肪</text>
+          <text x="160" y="105">蔬菜・水果</text>
+          <text x="160" y="163">全穀（較少）</text>
+          <text x="160" y="212">精緻碳水・糖</text>
+        </g>
+      </svg>
+      <p class="src" style="margin-top:.2em">蛋白與好油脂為主，限制精緻碳水與添加糖</p>
+    </div>
+  </div>
+  <table class="tbl" style="margin-top:.5em;font-size:clamp(.92rem,1.2vw,1.2rem)">
+    <thead><tr><th>比較</th><th>原本金字塔</th><th>2025–2030 新版</th></tr></thead>
+    <tbody>
+      <tr><td class="lv">基底·吃最多</td><td>穀類・澱粉（6–11 份）</td><td>優質蛋白＋健康脂肪（牛排・全脂奶・奶油）</td></tr>
+      <tr><td class="lv">核心訴求</td><td>低脂、以澱粉為主</td><td>「吃真食物」，少吃高度加工</td></tr>
+      <tr><td class="lv">主要限制</td><td>油脂與糖（頂端少量）</td><td>精緻碳水、添加糖（每餐糖 ≤10g）</td></tr>
+    </tbody>
+  </table>
+  <p class="src">資料：美國《2025–2030 飲食指南》（2026/1/7 USDA／HHS 發布）。哈佛公衛學院提醒：新版圖示凸顯飽和脂肪豐富的食物，卻仍保留「飽和脂肪 ≤10%」上限——兩者的張力，正是價值思辨的好案例。</p>
+</section>
 
 <!-- 從作業看見：價值思辨的範疇 -->
 <section class="slide">
