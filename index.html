@@ -433,31 +433,37 @@ body.no-clickzones .click-zones{display:none}
 <!-- 答案頁·題二(一) 三種行為觀 -->
 <section class="slide">
   <h2>題二·參考答案（一）：三種行為觀</h2>
-  <div class="grid2" style="align-items:center;gap:3vw">
+  <div class="grid2" style="align-items:center;gap:2.4vw;grid-template-columns:1.12fr .88fr">
     <div style="text-align:center">
-      <svg viewBox="0 0 380 384" style="width:100%;max-width:350px;max-height:52vh" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC',sans-serif">
-        <circle cx="190" cy="195" r="180" fill="#AFC6E0"/>
-        <circle cx="190" cy="195" r="118" fill="#B9C2CC"/>
-        <circle cx="190" cy="195" r="60" fill="#3E5876"/>
-        <g text-anchor="middle" font-weight="700">
-          <text x="190" y="46" font-size="22" fill="#1f3a52">行為整體</text>
-          <text x="190" y="104" font-size="20" fill="#33404d">行為方案</text>
-          <text x="190" y="189" font-size="19" fill="#fff">行為</text>
-          <text x="190" y="214" font-size="19" fill="#fff">本身</text>
-          <text x="190" y="356" font-size="16" fill="#1f3a52">（＋意圖／動機）</text>
+      <svg viewBox="0 0 460 472" style="width:100%;max-width:500px;max-height:62vh" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans TC',sans-serif">
+        <defs>
+          <radialGradient id="gOut" cx="40%" cy="30%" r="78%"><stop offset="0" stop-color="#D2E0F0"/><stop offset="1" stop-color="#9DBADB"/></radialGradient>
+          <radialGradient id="gMid" cx="42%" cy="32%" r="72%"><stop offset="0" stop-color="#D0D8E1"/><stop offset="1" stop-color="#A1AEBE"/></radialGradient>
+          <radialGradient id="gIn" cx="42%" cy="32%" r="78%"><stop offset="0" stop-color="#56738F"/><stop offset="1" stop-color="#2D4158"/></radialGradient>
+          <filter id="dsh" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="7" stdDeviation="11" flood-color="#2d4d70" flood-opacity="0.28"/></filter>
+        </defs>
+        <circle cx="230" cy="224" r="216" fill="url(#gOut)" filter="url(#dsh)"/>
+        <circle cx="230" cy="224" r="150" fill="url(#gMid)"/>
+        <circle cx="230" cy="224" r="84" fill="url(#gIn)"/>
+        <g text-anchor="middle" font-weight="800">
+          <text x="230" y="54" font-size="31" fill="#1d3850">行為整體</text>
+          <text x="230" y="132" font-size="27" fill="#33404e">行為方案</text>
+          <text x="230" y="216" font-size="30" fill="#fff">行為</text>
+          <text x="230" y="252" font-size="30" fill="#fff">本身</text>
+          <text x="230" y="404" font-size="21" fill="#1d3850" font-weight="700">（＋意圖／動機）</text>
         </g>
       </svg>
     </div>
     <div>
       <ul class="fl">
-        <li><b>行為方案</b> ＝ 行為本身 ＋ <b>情境（結果）</b></li>
-        <li><b>行為整體</b> ＝ 行為方案 ＋ <b>意圖（動機）</b></li>
+        <li style="font-size:clamp(1.35rem,2vw,1.9rem)"><b>行為方案</b> ＝ 行為本身 ＋ <b>情境（結果）</b></li>
+        <li style="font-size:clamp(1.35rem,2vw,1.9rem)"><b>行為整體</b> ＝ 行為方案 ＋ <b>意圖（動機）</b></li>
       </ul>
-      <div class="practice" style="margin-top:.4em">
+      <div class="practice" style="margin-top:.5em">
         <span class="label">能不能做道德判斷？</span>
-        <p style="margin:.2em 0 0;max-width:none"><b>「行為本身」無法做道德判斷</b>。能做判斷的是——</p>
-        <p style="margin:.3em 0 0;max-width:none">· <b>行為方案</b>的對錯：繫於行為的<b>客觀性質</b>，<b>不繫於動機</b>。</p>
-        <p style="margin:.15em 0 0;max-width:none">· <b>行為整體</b>的善惡：才與行為者的<b>動機</b>相關。</p>
+        <p style="margin:.25em 0 0;max-width:none;font-size:clamp(1.15rem,1.6vw,1.55rem)"><b>「行為本身」無法做道德判斷</b>。能做判斷的是——</p>
+        <p style="margin:.35em 0 0;max-width:none;font-size:clamp(1.15rem,1.6vw,1.55rem)">· <b>行為方案</b>的對錯：繫於行為的<b>客觀性質</b>，<b>不繫於動機</b>。</p>
+        <p style="margin:.2em 0 0;max-width:none;font-size:clamp(1.15rem,1.6vw,1.55rem)">· <b>行為整體</b>的善惡：才與行為者的<b>動機</b>相關。</p>
       </div>
     </div>
   </div>
