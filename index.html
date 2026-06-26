@@ -472,6 +472,11 @@ body.no-clickzones .click-zones{display:none}
 <!-- 答案頁·題二(二) 飛刀例的道德判斷 -->
 <section class="slide">
   <h2>題二飛刀例的道德判斷</h2>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="icKnife" viewBox="0 0 72 30"><polygon points="6,15 46,8 46,22" fill="#cfd3d8" stroke="#868d96" stroke-width="1.5" stroke-linejoin="round"/><rect x="46" y="10.5" width="20" height="9" rx="2.5" fill="#333"/><line x1="12" y1="3" x2="22" y2="7" stroke="#9aa3ad" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="27" x2="22" y2="23" stroke="#9aa3ad" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icHeart" viewBox="0 0 44 40"><path d="M22 37 C0 22 6 5 16 5 c3.5 0 6 2 6 5 c0-3 2.5-5 6-5 c10 0 16 17 -6 32 z" fill="#d23b3b"/><polyline points="7,21 15,21 18,14 22,28 25,21 37,21" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icLeg" viewBox="0 0 56 60"><g stroke="#6f5436" stroke-width="3" stroke-linecap="round" fill="none"><line x1="41" y1="7" x2="41" y2="53"/><line x1="34" y1="7" x2="48" y2="7"/><line x1="36" y1="27" x2="46" y2="27"/></g><path d="M14 7 q9 1 9 13 l0 13 q0 7 9 7 l5 0" fill="none" stroke="#c9a079" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><g stroke="#fff" stroke-width="2.3" stroke-linecap="round"><line x1="18" y1="24" x2="27" y2="24"/><line x1="18" y1="30" x2="27" y2="30"/><line x1="19" y1="36" x2="28" y2="36"/></g></symbol>
+  </defs></svg>
   <table class="tbl" style="font-size:clamp(.98rem,1.3vw,1.36rem);text-align:center">
     <thead>
       <tr>
@@ -493,8 +498,18 @@ body.no-clickzones .click-zones{display:none}
       </tr>
     </thead>
     <tbody>
-      <tr><td>憤怒報復</td><td>害人</td><td><b>推</b></td><td class="muted">（無危險）</td><td>瓊安斷腿</td></tr>
-      <tr><td>自律／他律</td><td>救人</td><td><b>推</b></td><td>飛刀射來</td><td>斷腿，但保住性命</td></tr>
+      <tr>
+        <td>憤怒報復</td><td>害人</td>
+        <td><b style="font-size:1.2em">推</b></td>
+        <td class="muted">（無危險）</td>
+        <td><svg width="44" height="48"><use href="#icLeg"/></svg><div style="font-size:.82em;color:#6b6b6b;margin-top:.1em">瓊安斷腿</div></td>
+      </tr>
+      <tr>
+        <td>自律／他律</td><td>救人</td>
+        <td><b style="font-size:1.2em">推</b></td>
+        <td><svg width="62" height="26"><use href="#icKnife"/></svg><div style="font-size:.82em;color:#6b6b6b;margin-top:.1em">飛刀射來</div></td>
+        <td><span style="display:inline-flex;align-items:center;gap:6px;justify-content:center"><svg width="42" height="46"><use href="#icLeg"/></svg><svg width="37" height="34"><use href="#icHeart"/></svg></span><div style="font-size:.82em;color:#6b6b6b;margin-top:.1em">斷腿，但保住性命</div></td>
+      </tr>
     </tbody>
   </table>
   <div class="practice" style="margin-top:.6em">
