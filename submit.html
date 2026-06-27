@@ -51,11 +51,27 @@ button.send:active{transform:translateY(1px);opacity:.9}
   var GROUPS={1:{c:'#862633'},2:{c:'#A8782E'},3:{c:'#1E5F74'},4:{c:'#6B5635'},5:{c:'#5C1A23'},6:{c:'#3E7D5A'}};
   var p=new URLSearchParams(location.search);
   var g=(p.get('g')||'1').replace(/[^1-6]/g,'')||'1';
-  var round=(p.get('r')==='kaocheng')?'kaocheng':'prologue';
+  var round=p.get('r'); if(['kaocheng','sixq'].indexOf(round)<0)round='prologue';
   var C=GROUPS[g].c;
   document.documentElement.style.setProperty('--c',C);
   document.getElementById('gName').textContent='第 '+g+' 組';
-  if(round==='kaocheng'){
+  if(round==='sixq'){
+    var Q={
+      1:{t:'題一〈考城隍〉',d:'用<b>兩種道德判斷</b>詮釋「考題」與「宋公的回答」',ph:'例：用「看動機（行為者善惡）」這把尺……用「看行為對錯」這把尺……'},
+      2:{t:'題二　動機的善惡，要如何判斷？',d:'動機（意志）的善惡依何判斷？要能<b>歸責</b>須先滿足哪些<b>條件</b>',ph:'例：要看是否「忠於良心」……前提是心智成熟、健全、意志自由……'},
+      3:{t:'題三　Pojman 推人案',d:'A、B 真是「<b>同樣的行為</b>」嗎？行為的對錯，真由動機決定嗎？',ph:'例：有飛刀的情境讓「推人」變成不同的行為方案……'},
+      4:{t:'題四　張三毒老婆案',d:'張三的<b>惡意圖</b>是否使「給藥」成為<b>錯的行為</b>？又是什麼決定對錯？',ph:'例：該以行為人預期的結果，還是客觀事實來判斷……'},
+      5:{t:'題五　過失致死、傷害致死與殺人的區別',d:'用 <b>F／f／I／A</b> 區別三罪，並說明<b>法定刑何以輕重有別</b>',ph:'例：死亡落在 F−f 是過失致死；落在 I 是殺人……'},
+      6:{t:'題六　開槍案（30 上 2671）',d:'本案是<b>什麼行為</b>？判決「<b>故意＋殺人未遂</b>」是否妥當？',ph:'例：以行為人主觀預期 f 判故意；走避未死故未遂……'}
+    };
+    var Qg=Q[g]||Q[1];
+    document.getElementById('gSub').textContent=Qg.t;
+    document.getElementById('introTxt').innerHTML='你們這一組討論 <b>'+Qg.t+'</b>：'+Qg.d+'。把全組討論的<b>精華</b>都打上來——重點、不同立場與理由都記下來，<b>不只一句、可分多次送出</b>，即時出現在投影幕你們這一組的頁面。';
+    document.getElementById('lblMain').textContent='我們這一組的討論精華';
+    document.getElementById('main').placeholder=Qg.ph;
+    document.getElementById('blkMain').style.borderTopColor=C;
+    document.title='第'+g+'組 '+Qg.t+' · 投稿';
+  } else if(round==='kaocheng'){
     document.getElementById('gSub').textContent='〈考城隍〉的兩種道德判斷';
     document.getElementById('introTxt').innerHTML='把你們這一組對〈考城隍〉的討論寫下來：<b>用兩種道德判斷詮釋考題與宋公的回答，並說明兩者的不對稱關係</b>。送出後即時出現在投影幕你們這一組的頁面。';
     document.getElementById('lblMain').textContent='② 兩種判斷的詮釋＋不對稱關係';
