@@ -1339,7 +1339,8 @@ body.no-clickzones .click-zones{display:none}
       <p class="muted">這正回扣了「終極信念」：對存有與虛無的根本判斷，會一路滲透到最具體的人生抉擇。</p>
     </div>
     <div class="video-wrap">
-      <iframe src="https://www.youtube-nocookie.com/embed/cckBow0fDGg" title="Better to Have Never Existed - Jordan Peterson" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube-nocookie.com/embed/cckBow0fDGg" title="Better to Have Never Existed - Jordan Peterson" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;fullscreen" allowfullscreen></iframe>
+      <button onclick="var f=this.closest('.video-wrap').querySelector('iframe');var r=f.requestFullscreen||f.webkitRequestFullscreen||f.mozRequestFullScreen||f.msRequestFullscreen;if(r)r.call(f);" title="影片全螢幕" style="position:absolute;top:8px;right:8px;z-index:70;width:40px;height:40px;border:none;border-radius:8px;background:rgba(0,0,0,.55);color:#fff;font-size:21px;line-height:1;cursor:pointer">⛶</button>
     </div>
   </div>
   <p class="src" style="text-align:center;max-width:none">Prof. Jordan Peterson, "Better to Have Never Existed?"</p>
