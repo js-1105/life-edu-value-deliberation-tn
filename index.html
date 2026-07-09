@@ -121,7 +121,8 @@ ul.fl li::before{content:"";position:absolute;left:0;top:1.05em;width:.7em;heigh
 .wc-camus{--wc1:#E7EDF2;--wc2:#CFDCE8}
 .wc-cap{margin-top:.6em;font-family:var(--font-serif);font-style:italic;font-size:clamp(1.1rem,1.5vw,1.5rem);color:var(--color-muted);text-align:center;letter-spacing:.03em}
 /* 影片 */
-.video-wrap{position:relative;z-index:60;width:100%;max-width:560px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-strong);margin:.3em 0;background:#000}
+/* 全螢幕/縮放黑閃第二根因：跨網域iframe追上容器新尺寸前，露出容器自己的背景；原為純黑在淺色deck上極刺眼，改用deck底色 */
+.video-wrap{position:relative;z-index:60;width:100%;max-width:560px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-strong);margin:.3em 0;background:var(--color-bg)}
 .video-wrap iframe{width:100%;height:100%;border:0}
 .video-wrap:fullscreen{background:#000;max-width:none;border-radius:0}
 .cc-overlay{position:absolute;left:3%;right:3%;bottom:7%;z-index:65;text-align:center;pointer-events:none;font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;font-weight:700;line-height:1.45}
