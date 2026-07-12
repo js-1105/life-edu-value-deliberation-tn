@@ -232,6 +232,15 @@ body.no-clickzones .click-zones{display:none}
 .toast{position:fixed;top:1.5em;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:.6em 1.4em;border-radius:999px;font-size:.9rem;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
 @media(max-width:768px){.grid2,.grid3,.method-grid,.contrast2,.cloud-stage{grid-template-columns:1fr}.lyrics{column-count:1}}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99980;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.modal-backdrop.show{display:flex}
+.modal-card{background:#fff;border-radius:14px;padding:1.8em 2em 1.4em;max-width:420px;border-top:4px solid var(--color-accent);font-family:var(--font-sans);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.modal-card h3{margin:0 0 .5em;color:var(--color-primary);font-family:var(--font-serif)}
+.modal-card p{margin:0 0 1.2em;color:var(--color-text);line-height:1.6}
+.modal-actions{display:flex;gap:.8em;justify-content:flex-end}
+.modal-actions button{border:none;border-radius:999px;padding:.55em 1.4em;font-size:.95rem;font-weight:700;cursor:pointer;font-family:var(--font-sans)}
+.modal-btn-cancel{background:#eee;color:#333}
+.modal-btn-confirm{background:var(--color-primary);color:#fff}
 </style>
 <script src="fbconfig.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -240,6 +249,34 @@ body.no-clickzones .click-zones{display:none}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.0/wordcloud2.min.js"></script>
 </head>
 <body>
+<!-- 自訂確認對話框：絕不用原生 confirm()/alert()（會強制離開全螢幕），改用此 DOM modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal-card">
+    <h3 id="modalTitle">確認</h3>
+    <p id="modalMessage"></p>
+    <div class="modal-actions">
+      <button class="modal-btn-cancel" id="modalCancel">取消</button>
+      <button class="modal-btn-confirm" id="modalConfirm">確定</button>
+    </div>
+  </div>
+</div>
+<script>
+function showConfirm({title='確認',message='',okText='確定',cancelText='取消'}={}){
+  return new Promise(resolve=>{
+    const backdrop=document.getElementById('modalBackdrop');
+    document.getElementById('modalTitle').textContent=title;
+    document.getElementById('modalMessage').textContent=message;
+    const okBtn=document.getElementById('modalConfirm'),cancelBtn=document.getElementById('modalCancel');
+    okBtn.textContent=okText;cancelBtn.textContent=cancelText;
+    const cleanup=(val)=>{backdrop.classList.remove('show');okBtn.removeEventListener('click',onOk);cancelBtn.removeEventListener('click',onCancel);document.removeEventListener('keydown',onKey);resolve(val);};
+    const onOk=()=>cleanup(true),onCancel=()=>cleanup(false);
+    const onKey=(e)=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();cleanup(false);}if(e.key==='Enter'){e.preventDefault();e.stopPropagation();cleanup(true);}};
+    okBtn.addEventListener('click',onOk);cancelBtn.addEventListener('click',onCancel);
+    document.addEventListener('keydown',onKey,true);
+    backdrop.classList.add('show');
+  });
+}
+</script>
 <div class="deck" id="deck">
 
 <!-- ===================== 封面 ===================== -->
@@ -1670,10 +1707,10 @@ window.U3=(function(){
     a.href=url;a.download='單元三價值思辨_'+ROOM+'_'+stamp+'.csv';document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
   }
-  function exportAndClear(){
+  async function exportAndClear(){
     var stamp=nowStamp();
     downloadCSV(stamp);
-    if(!confirm('本場互動資料已下載成 CSV（存在這台電腦的「下載」資料夾）。要現在把本場全部清空、房間掃乾淨嗎？')){showToast('已下載備份，未清空',2500);return;}
+    if(!(await showConfirm({title:'清空確認',message:'本場互動資料已下載成 CSV（存在這台電腦的「下載」資料夾）。要現在把本場全部清空、房間掃乾淨嗎？'}))){showToast('已下載備份，未清空',2500);return;}
     if(root){
       root.once('value').then(snap=>{
         var val=snap.val(),fin=()=>{root.remove();showToast('已下載 CSV＋雲端封存，並清空本場',3000);};
