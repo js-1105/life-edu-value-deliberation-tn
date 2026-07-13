@@ -204,7 +204,12 @@ table.tbl .lv{font-family:var(--font-serif);font-weight:700;color:var(--color-pr
 .eggsong .lyrics{color:#f4e9d8}
 .eggsong .lyrics .h{color:var(--color-accent-soft)}
 .eggsong .src{color:rgba(255,255,255,.72)}
-.eggsong h2,.eggsong .lyrics,.eggsong .src,.eggsong .back-home-btn{position:relative;z-index:2}
+.eggsong h2,.eggsong .lyrics,.eggsong .src,.eggsong .back-home-btn,.eggsong .egg-player{position:relative;z-index:2}
+.egg-player{display:flex;align-items:center;gap:1em;margin:3.2em auto 0;width:100%;max-width:44em;background:rgba(0,0,0,.28);border:1px solid rgba(212,175,55,.45);border-radius:999px;padding:.5em .6em .5em 1.4em}
+.egg-play{flex:none;width:2.5em;height:2.5em;border-radius:50%;background:var(--color-accent);color:#2A1418;border:none;font-size:1.05rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.egg-play:hover{filter:brightness(1.08)}
+.egg-seek{flex:1;accent-color:var(--color-accent);cursor:pointer}
+.egg-time{flex:none;font-variant-numeric:tabular-nums;font-size:.85rem;color:rgba(255,255,255,.85);min-width:5.4em;text-align:right;padding-right:.3em}
 .eggsong .egg-deco{position:absolute;z-index:0;pointer-events:none;opacity:.62}
 .eggsong .egg-deco-tr{top:8vh;right:5vw;width:clamp(95px,9vw,150px)}
 .eggsong .egg-deco-bl{bottom:10vh;left:4.5vw;width:clamp(75px,7.5vw,120px)}
@@ -1472,8 +1477,13 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
     <p><span class="h">〔橋段〕</span><br>若沒有北極星　所有方向都一樣<br>若什麼都可以　那就什麼都不算數<br>先想清楚　我究竟要去哪裡——<br>路，才會浮現</p>
     <p><span class="h">〔尾聲〕</span><br>我站在十字路口<br>這一次　我睜開眼睛　<span style="white-space:nowrap">慎思明辨</span>，<span style="white-space:nowrap">好好選擇</span></p>
   </div>
-  <p class="src">〈在十字路口〉——橋段「若沒有北極星…」即「價值思辨必須緊扣終極理想」的歌詞化。</p>
-  <button class="back-home-btn" onclick="goToSlide(1)">↑　回到首頁</button>
+  <audio id="eggAudio" src="media/theme_song.m4a" preload="metadata"></audio>
+  <div class="egg-player">
+    <button class="egg-play" onclick="eggTogglePlay()" aria-label="播放／暫停">▶</button>
+    <input type="range" class="egg-seek" min="0" max="1000" value="0" oninput="eggSeek(this.value)" aria-label="播放進度">
+    <span class="egg-time cap">0:00 / 0:00</span>
+  </div>
+  <button class="back-home-btn" style="margin-top:1.8em" onclick="goToSlide(1)">↑　回到首頁</button>
 </section>
 
 </div>
@@ -1534,6 +1544,7 @@ slides.forEach((s,i)=>{if(s.querySelector('.cloud-canvas-wrap canvas'))CLOUD_SLI
 function showSlide(n){
   if(window.__exitVideoZoom)window.__exitVideoZoom();
   if(n<1)n=1;if(n>total)n=total;
+  if(n!==total)eggPause();
   slides.forEach((s,i)=>{s.classList.remove('active','prev');if(i+1===n)s.classList.add('active');else if(i+1<n)s.classList.add('prev');});
   current=n;
   document.getElementById('curr').textContent=current;
@@ -1542,6 +1553,28 @@ function showSlide(n){
   document.body.classList.toggle('no-clickzones',noClickZoneSlides.includes(n));
   if(window.U3&&CLOUD_SLIDES.includes(n))U3.refreshClouds();
 }
+function eggFmt(t){t=Math.floor(t||0);var m=Math.floor(t/60),s=t%60;return m+':'+(s<10?'0':'')+s;}
+function eggPause(){var a=document.getElementById('eggAudio');if(a&&!a.paused){a.pause();}var b=document.querySelector('.egg-play');if(b)b.textContent='▶';}
+function eggTogglePlay(){
+  var a=document.getElementById('eggAudio');if(!a)return;
+  var b=document.querySelector('.egg-play');
+  if(a.paused){a.play();if(b)b.textContent='⏸';}else{a.pause();if(b)b.textContent='▶';}
+}
+function eggSeek(v){var a=document.getElementById('eggAudio');if(!a||!a.duration)return;a.currentTime=(v/1000)*a.duration;}
+(function(){
+  var a=document.getElementById('eggAudio');if(!a)return;
+  a.addEventListener('timeupdate',function(){
+    var seek=document.querySelector('.egg-seek'),t=document.querySelector('.egg-time');
+    if(a.duration&&seek)seek.value=Math.round((a.currentTime/a.duration)*1000);
+    if(t)t.textContent=eggFmt(a.currentTime)+' / '+eggFmt(a.duration);
+  });
+  a.addEventListener('loadedmetadata',function(){
+    var t=document.querySelector('.egg-time');if(t)t.textContent='0:00 / '+eggFmt(a.duration);
+  });
+  a.addEventListener('ended',function(){var b=document.querySelector('.egg-play');if(b)b.textContent='▶';});
+  var seekEl=document.querySelector('.egg-seek');
+  if(seekEl)seekEl.addEventListener('keydown',function(e){if(['ArrowLeft','ArrowRight',' '].includes(e.key))e.stopPropagation();});
+})();
 function nextSlide(){showSlide(current+1)}function prevSlide(){showSlide(current-1)}function goToSlide(n){showSlide(n)}
 function getFsReq(el){return el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen||null}
 function getFsExit(){return document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen||null}
