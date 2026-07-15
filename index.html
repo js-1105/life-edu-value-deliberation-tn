@@ -1590,14 +1590,26 @@ slides.forEach(s=>{const fw=document.createElement('div');fw.className='fitwrap'
 function fitSlide(s){
   const fw=s.firstElementChild;if(!fw||!fw.classList.contains('fitwrap'))return;
   if(fw.querySelector('.video-wrap.zoom'))return; // 影片放大中：勿動這頁縮放，以免綁架放大定位
+  // 內部可捲動容器（如即時上傳 .gbox）內容累加時，量測階段把 fw 高度暫時設為 auto 會讓
+  // flex:1 的捲動容器失去邊界、改以「全部內容」的自然高度撐開，量出的 natH 被撐爆，
+  // 導致整頁被誤判過高而被縮小（教授 2026-07-15 回報：上傳資料後整頁縮小）。
+  // 修法：量測前先鎖住這類容器「當下（未被撐爆）」的實際渲染高度，量完再解除鎖定，
+  // 讓它們的內容量不計入 natH——通用於任何 overflow:auto/scroll 的子元素，不只 .gbox。
+  const scrollers=[...fw.querySelectorAll('*')].filter(function(e){
+    const ov=getComputedStyle(e).overflowY;
+    return ov==='auto'||ov==='scroll';
+  });
+  const savedH=scrollers.map(function(e){return e.getBoundingClientRect().height;});
   fw.style.transform='none';
   const cs=getComputedStyle(s);
   const availW=s.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
   const availH=s.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
   const ph=fw.style.height,pj=fw.style.justifyContent;
+  scrollers.forEach(function(e,i){if(savedH[i]>0)e.style.maxHeight=savedH[i]+'px';});
   fw.style.height='auto';fw.style.justifyContent='flex-start';
   const natH=fw.scrollHeight,natW=fw.scrollWidth;
   fw.style.height=ph;fw.style.justifyContent=pj;
+  scrollers.forEach(function(e){e.style.maxHeight='';});
   let k=Math.min(1,availH/natH,availW/natW);
   k=Math.floor(k*995)/1000;
   fw.style.transform=k<1?'scale('+k+')':'';
