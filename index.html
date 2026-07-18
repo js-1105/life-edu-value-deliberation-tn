@@ -1447,7 +1447,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
     <div>
       <div class="video-wrap" style="max-width:520px">
         <iframe src="https://www.youtube-nocookie.com/embed/ZS571kxDcVw?rel=0&modestbranding=1&fs=0" title="傷腎食物排行" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
-        <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片">⛶</button>
+        <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片"><svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
       </div>
       <p class="src" style="margin-top:.7em">圖／資料：早安健康。</p>
     </div>
@@ -1483,7 +1483,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
     <div class="video-wrap" id="vw-s61">
       <iframe id="yt-s61" src="https://www.youtube-nocookie.com/embed/cckBow0fDGg?enablejsapi=1&rel=0&modestbranding=1&fs=0" title="Better to Have Never Existed - Jordan Peterson" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
       <div class="cc-overlay" id="cc-s61"></div>
-      <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片">⛶</button>
+      <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片"><svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
     </div>
   </div>
   <p class="src" style="text-align:center;max-width:none">Prof. Jordan Peterson, "Better to Have Never Existed?"</p>
@@ -1514,7 +1514,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
     </div>
     <div class="video-wrap">
       <iframe src="https://www.youtube-nocookie.com/embed/fvPgjg201w0?rel=0&modestbranding=1&fs=0" title="Professor Against Political Correctness" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
-      <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片">⛶</button>
+      <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片"><svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
     </div>
   </div>
 </section>
@@ -1579,12 +1579,16 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 <div class="progress-bar" id="progress"></div>
 <div class="page-indicator"><span id="curr">1</span> / <span id="total">1</span></div>
 <div class="nav-arrows"><button onclick="prevSlide()" aria-label="上一頁">‹</button><button onclick="nextSlide()" aria-label="下一頁">›</button></div>
-<button class="fs-toggle" onclick="toggleFullscreen()" title="全螢幕（F）">⛶</button>
+<button class="fs-toggle" onclick="toggleFullscreen()" title="全螢幕（F）"><svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
 <div class="toast" id="toast"></div>
 
 <script>
 const slides=document.querySelectorAll('.slide');
 let current=1;const total=slides.length;
+const FS_ICON_EXPAND='<svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+const FS_ICON_COMPRESS='<svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>';
+window.FS_ICON_EXPAND=FS_ICON_EXPAND;window.FS_ICON_COMPRESS=FS_ICON_COMPRESS;
+function updateFsIcon(){const b=document.querySelector('.fs-toggle');if(b)b.innerHTML=isFs()?FS_ICON_COMPRESS:FS_ICON_EXPAND;}
 document.getElementById('total').textContent=total;
 slides.forEach(s=>{const fw=document.createElement('div');fw.className='fitwrap';while(s.firstChild)fw.appendChild(s.firstChild);s.appendChild(fw);});
 function fitSlide(s){
@@ -1617,10 +1621,10 @@ function fitSlide(s){
 function fitAll(){slides.forEach(fitSlide);}
 window.addEventListener('resize',fitAll);
 window.addEventListener('orientationchange',()=>setTimeout(fitAll,80));
-document.addEventListener('fullscreenchange',()=>setTimeout(fitAll,80));
+document.addEventListener('fullscreenchange',()=>{setTimeout(fitAll,80);updateFsIcon();});
 window.addEventListener('load',()=>setTimeout(fitAll,60));
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitAll);
-fitAll();
+fitAll();updateFsIcon();
 (function assignSectionTints(){
   const numerals=['壹','貳','參','肆','伍','陸','柒'];
   let chap=0;
@@ -2023,7 +2027,7 @@ var tag=document.createElement('script');tag.src='https://www.youtube.com/iframe
            fw.dataset.savedZ=fw.style.zIndex||'';fw.style.zIndex='auto';}
     if(sl){sl.dataset.savedT=sl.style.transform||'';sl.style.transform='none';}
     w.classList.add('zoom');document.body.classList.add('has-zoom');
-    var b=w.querySelector('.vfs');if(b)b.textContent='✕';
+    var b=w.querySelector('.vfs');if(b)b.innerHTML=window.FS_ICON_COMPRESS;
   }
   function exit(){
     var w=zoomed();document.body.classList.remove('has-zoom');
@@ -2032,7 +2036,7 @@ var tag=document.createElement('script');tag.src='https://www.youtube.com/iframe
     w.classList.remove('zoom');
     if(fw){fw.style.transform=fw.dataset.savedT||'';fw.style.zIndex=fw.dataset.savedZ||'';}
     if(sl)sl.style.transform=sl.dataset.savedT||'';
-    var b=w.querySelector('.vfs');if(b)b.textContent='⛶';
+    var b=w.querySelector('.vfs');if(b)b.innerHTML=window.FS_ICON_EXPAND;
     if(window.fitAll)fitAll();
   }
   function toggle(w){if(w.classList.contains('zoom')){exit();}else{var c=zoomed();if(c&&c!==w)exit();enter(w);}}
