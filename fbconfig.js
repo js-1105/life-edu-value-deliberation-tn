@@ -17,4 +17,4 @@ window.FB_CONFIG = {
 };
 
 /* 每屆上課換一個房號即可「清空重來」（不同房號＝不同資料）。建議用日期。 */
-window.FB_ROOM = "u3-2026-0715";
+window.FB_ROOM = "u3tn-2026-0729";
