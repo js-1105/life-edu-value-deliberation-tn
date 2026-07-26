@@ -68,7 +68,27 @@ blockquote{font-family:var(--font-serif);font-style:italic;font-size:clamp(1.5re
 .section-divider .stage{font-size:clamp(1.1rem,2vw,1.5rem);color:var(--color-accent-soft);font-weight:700;letter-spacing:.3em;margin-bottom:.1em}
 .section-divider .num{font-family:var(--font-serif);font-size:clamp(4rem,13vw,10rem);font-weight:900;line-height:1;background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 4px 30px rgba(212,175,55,.3)}
 .section-divider h1{margin-top:.05em;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.25)}
-.section-divider .when{color:rgba(255,255,255,.82);margin-top:.5em;letter-spacing:.05em;max-width:34em}
+.section-divider .when{font-size:clamp(1.75rem,2.85vw,2.7rem);line-height:1.5;color:rgba(255,255,255,.88);margin-top:.6em;letter-spacing:.05em;max-width:34em}
+
+/* 🔴 章節分隔頁主題視覺＋進場動畫（教授 2026-07-24 訂：標題頁不可單調無聊） */
+.sec-art{position:absolute;right:3vw;top:4.5vh;height:min(40vh,360px);width:auto;aspect-ratio:1/1;opacity:.19;color:var(--color-accent);pointer-events:none;z-index:0}
+.section-divider .num,.section-divider h1,.section-divider .when,.section-divider .stage{position:relative;z-index:1}
+@keyframes secDraw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+@keyframes secSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes secFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes secPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.06);opacity:1}}
+@keyframes secTilt{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes secRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.slide.section-divider.active .sec-draw{stroke-dasharray:900;animation:secDraw 2.6s cubic-bezier(.4,0,.2,1) both}
+.slide.section-divider.active .sec-spin{transform-origin:100px 100px;animation:secSpin 3.2s cubic-bezier(.34,.03,.2,1) both}
+.slide.section-divider.active .sec-float{animation:secFloat 4.6s ease-in-out infinite}
+.slide.section-divider.active .sec-pulse{transform-origin:100px 100px;animation:secPulse 3.6s ease-in-out infinite}
+.slide.section-divider.active .sec-tilt{transform-origin:100px 60px;animation:secTilt 5s ease-in-out infinite}
+.slide.section-divider.active .sec-rise{animation:secRise .9s ease-out both}
+.slide.section-divider.active .sec-rise:nth-of-type(2){animation-delay:.15s}
+.slide.section-divider.active .sec-rise:nth-of-type(3){animation-delay:.3s}
+.slide.section-divider.active .sec-rise:nth-of-type(4){animation-delay:.45s}
+.slide.section-divider.active .sec-rise:nth-of-type(5){animation-delay:.6s}
 /* 封面 */
 .slide.cover{background:var(--grad-royal);color:#fff;text-align:center;--ai:center;overflow:hidden}
 .slide.cover::before{content:"";position:absolute;inset:0;background:radial-gradient(720px 460px at 50% 20%,rgba(212,175,55,.12),transparent 68%),linear-gradient(180deg,rgba(40,8,13,.04),rgba(40,8,13,.28));z-index:1}
@@ -191,7 +211,7 @@ table.tbl .lv{font-family:var(--font-serif);font-weight:700;color:var(--color-pr
 .gitem{background:#fff;border-left:5px solid var(--c,#862633);border-radius:8px;box-shadow:var(--shadow-soft);padding:.6em .9em;font-size:clamp(1.35rem,1.7vw,1.7rem);line-height:1.5;white-space:pre-wrap;animation:u3pop .3s ease}
 .gbox .empty-hint{margin:auto;font-size:clamp(1.35rem,1.65vw,1.65rem);color:var(--color-muted);font-style:italic;text-align:center}
 @keyframes u3pop{from{opacity:0;transform:scale(.85)}to{opacity:1}}
-.daiuda{display:flex;gap:.5em;align-items:center;margin-top:.6em;flex-wrap:wrap}
+.daiuda{display:none}  /* 教授2026-07-24：投稿頁畫面拿掉「無網路時·老師代打」列；功能保留，要恢復改回 display:flex;gap:.5em;align-items:center;margin-top:.6em;flex-wrap:wrap */
 .daiuda .tag{font-size:.78rem;color:var(--color-muted);background:rgba(0,0,0,.05);padding:.28em .8em;border-radius:999px;white-space:nowrap;margin:0}
 .daiuda input{flex:1;min-width:11em;font-family:var(--font-sans);font-size:1rem;padding:.45em .7em;border:2px solid var(--color-line);border-radius:8px;background:#fff;color:var(--color-text)}
 .daiuda .btn{background:var(--color-primary);color:#fff;border:none;border-radius:999px;padding:.5em 1.3em;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit}
@@ -306,7 +326,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
   <p class="lead" style="max-width:none;font-size:clamp(1.15rem,1.7vw,1.5rem);margin-bottom:.3em">昨天問「人應為何而活」（終極關懷）；今天問「人應<b>如何</b>生活」——讓我們一起在各種價值衝突中，學習慎思明辨。</p>
   <ul class="fl" style="font-size:.72em">
     <li style="padding:.3em 0 .3em 1.6em"><b>第 1 節</b>　從課前作業談起——價值思辨無所不在（09:10–10:00）</li>
-    <li style="padding:.3em 0 .3em 1.6em"><b>第 2–3 節</b>　倫理學複習——三回合，每回合四組一題（10:10–12:00）</li>
+    <li style="padding:.3em 0 .3em 1.6em"><b>第 2–3 節</b>　倫理學複習——三回合，每回合三組一題（10:10–12:00）</li>
     <li style="padding:.3em 0 .3em 1.6em"><b>第 4 節</b>　倫理學複習收穫——課前作業第三題小組討論（午休後 13:30–14:20）</li>
     <li style="padding:.3em 0 .3em 1.6em"><b>第 5 節</b>　導論＋方法論（14:30–15:20）</li>
     <li style="padding:.3em 0 .3em 1.6em"><b>第 6 節</b>　當前重大價值爭議與總結（15:30–16:20）</li>
@@ -315,6 +335,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 
 <!-- ===================== 壹　從你的課前作業談起 ===================== -->
 <section class="slide section-divider">
+  <svg class="sec-art" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><rect x="42" y="38" width="96" height="124" rx="7" stroke-width="7"/><g class="sec-draw"><line x1="64" y1="72" x2="118" y2="72" stroke-width="5"/><line x1="64" y1="98" x2="118" y2="98" stroke-width="5"/><line x1="64" y1="124" x2="98" y2="124" stroke-width="5"/></g><path class="sec-float" d="M152 48 L174 70 L122 122 L112 132 L110 114 Z" stroke-width="6"/></svg>
   <div class="num">壹</div>
   <h1>從課前作業談起</h1>
   <p class="when">價值思辨並不只關乎道德，它早已滲進我們每天的價值選擇裡，就讓我們先從課前作業的兩道暖身題開始談起。</p>
@@ -355,12 +376,12 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 <!-- 課前作業分組 QR -->
 <section class="slide">
   <h2>分兩題討論，掃 QR 把全組精華打上來</h2>
-  <p class="lead qr-intro" style="text-align:left"><b>第1–4組</b> → 討論<b>第一題·卡繆</b>；<b>第5–8組</b> → 討論<b>第二題·飲食指南</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來。</p>
+  <p class="lead qr-intro" style="text-align:left"><b>第1–3組</b> → 討論<b>第一題·卡繆</b>；<b>第4–6組</b> → 討論<b>第二題·飲食指南</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來。</p>
   <div class="qr-stage">
     <div class="qr-card" style="--c:#862633"><div class="qr-box" data-pg="1"></div><div class="qr-cap">第1組<small>第一題·卡繆</small></div></div>
     <div class="qr-card" style="--c:#A8782E"><div class="qr-box" data-pg="2"></div><div class="qr-cap">第2組<small>第一題·卡繆</small></div></div>
     <div class="qr-card" style="--c:#1E5F74"><div class="qr-box" data-pg="3"></div><div class="qr-cap">第3組<small>第一題·卡繆</small></div></div>
-    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-pg="4"></div><div class="qr-cap">第4組<small>第一題·卡繆</small></div></div>
+    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-pg="4"></div><div class="qr-cap">第4組<small>第二題·飲食</small></div></div>
     <div class="qr-card" style="--c:#5C1A23"><div class="qr-box" data-pg="5"></div><div class="qr-cap">第5組<small>第二題·飲食</small></div></div>
     <div class="qr-card" style="--c:#3E7D5A"><div class="qr-box" data-pg="6"></div><div class="qr-cap">第6組<small>第二題·飲食</small></div></div>
   </div>
@@ -370,7 +391,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 <section class="slide gpage" style="--c:#862633"><h2><span class="g-dot"></span>第1組 · 第一題 卡繆會怎麼選</h2><div class="gbox" id="pg1"></div><div class="daiuda" data-pg="1"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
 <section class="slide gpage" style="--c:#A8782E"><h2><span class="g-dot"></span>第2組 · 第一題 卡繆會怎麼選</h2><div class="gbox" id="pg2"></div><div class="daiuda" data-pg="2"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
 <section class="slide gpage" style="--c:#1E5F74"><h2><span class="g-dot"></span>第3組 · 第一題 卡繆會怎麼選</h2><div class="gbox" id="pg3"></div><div class="daiuda" data-pg="3"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
-<section class="slide gpage" style="--c:#6B5635"><h2><span class="g-dot"></span>第4組 · 第一題 卡繆會怎麼選</h2><div class="gbox" id="pg4"></div><div class="daiuda" data-pg="4"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
+<section class="slide gpage" style="--c:#6B5635"><h2><span class="g-dot"></span>第4組 · 第二題 飲食指南改了什麼</h2><div class="gbox" id="pg4"></div><div class="daiuda" data-pg="4"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
 <section class="slide gpage" style="--c:#5C1A23"><h2><span class="g-dot"></span>第5組 · 第二題 飲食指南改了什麼</h2><div class="gbox" id="pg5"></div><div class="daiuda" data-pg="5"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
 <section class="slide gpage" style="--c:#3E7D5A"><h2><span class="g-dot"></span>第6組 · 第二題 飲食指南改了什麼</h2><div class="gbox" id="pg6"></div><div class="daiuda" data-pg="6"><span class="tag">無網路時·老師代打</span><input type="text" placeholder="代打討論精華，Enter 送出"><button class="btn" onclick="U3dai(this.closest('.daiuda'))">送出</button></div></section>
 
@@ -541,6 +562,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 
 <!-- ===================== 貳　倫理學複習 ===================== -->
 <section class="slide section-divider">
+  <svg class="sec-art" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><line x1="100" y1="36" x2="100" y2="152" stroke-width="8"/><path d="M62 158 H138" stroke-width="9"/><g class="sec-tilt"><line x1="38" y1="60" x2="162" y2="60" stroke-width="7"/><path d="M38 60 L20 98 H56 Z" stroke-width="5"/><path d="M162 60 L144 98 H180 Z" stroke-width="5"/></g></svg>
   <div class="num">貳</div>
   <h1>倫理學複習</h1>
   <p class="when">在進入價值思辨之前，先複習過去學過的倫理學——分三回合、每回合兩題，從《聊齋》〈考城隍〉的兩種道德判斷，到刑法上的故意與過失。</p>
@@ -581,12 +603,12 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 <!-- 倫理學複習：第1回合 QR -->
 <section class="slide">
   <h2>第1回合：題一〈考城隍〉　＋　題二　動機的善惡</h2>
-  <p class="lead qr-intro" style="text-align:left"><b>第1–4組</b> → 討論<b>題一〈考城隍〉</b>；<b>第5–8組</b> → 討論<b>題二　動機的善惡</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來（不只一句、可分多次），投影幕即時顯示。</p>
+  <p class="lead qr-intro" style="text-align:left"><b>第1–3組</b> → 討論<b>題一〈考城隍〉</b>；<b>第4–6組</b> → 討論<b>題二　動機的善惡</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來（不只一句、可分多次），投影幕即時顯示。</p>
   <div class="qr-stage">
     <div class="qr-card" style="--c:#862633"><div class="qr-box" data-sg="1" data-rd="1"></div><div class="qr-cap">第1組<small>題一·考城隍</small></div></div>
     <div class="qr-card" style="--c:#A8782E"><div class="qr-box" data-sg="2" data-rd="1"></div><div class="qr-cap">第2組<small>題一·考城隍</small></div></div>
     <div class="qr-card" style="--c:#1E5F74"><div class="qr-box" data-sg="3" data-rd="1"></div><div class="qr-cap">第3組<small>題一·考城隍</small></div></div>
-    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-sg="4" data-rd="1"></div><div class="qr-cap">第4組<small>題一·考城隍</small></div></div>
+    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-sg="4" data-rd="1"></div><div class="qr-cap">第4組<small>題二·動機善惡</small></div></div>
     <div class="qr-card" style="--c:#5C1A23"><div class="qr-box" data-sg="5" data-rd="1"></div><div class="qr-cap">第5組<small>題二·動機善惡</small></div></div>
     <div class="qr-card" style="--c:#3E7D5A"><div class="qr-box" data-sg="6" data-rd="1"></div><div class="qr-cap">第6組<small>題二·動機善惡</small></div></div>
   </div>
@@ -691,12 +713,12 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 <!-- 倫理學複習：第2回合 QR -->
 <section class="slide">
   <h2>第2回合：題三　Pojman 推人案　＋　題四　張三毒老婆案</h2>
-  <p class="lead qr-intro" style="text-align:left"><b>第1–4組</b> → 討論<b>題三　Pojman 推人案</b>；<b>第5–8組</b> → 討論<b>題四　張三毒老婆案</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來（不只一句、可分多次），投影幕即時顯示。</p>
+  <p class="lead qr-intro" style="text-align:left"><b>第1–3組</b> → 討論<b>題三　Pojman 推人案</b>；<b>第4–6組</b> → 討論<b>題四　張三毒老婆案</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來（不只一句、可分多次），投影幕即時顯示。</p>
   <div class="qr-stage">
     <div class="qr-card" style="--c:#862633"><div class="qr-box" data-sg="1" data-rd="2"></div><div class="qr-cap">第1組<small>題三·推人案</small></div></div>
     <div class="qr-card" style="--c:#A8782E"><div class="qr-box" data-sg="2" data-rd="2"></div><div class="qr-cap">第2組<small>題三·推人案</small></div></div>
     <div class="qr-card" style="--c:#1E5F74"><div class="qr-box" data-sg="3" data-rd="2"></div><div class="qr-cap">第3組<small>題三·推人案</small></div></div>
-    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-sg="4" data-rd="2"></div><div class="qr-cap">第4組<small>題三·推人案</small></div></div>
+    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-sg="4" data-rd="2"></div><div class="qr-cap">第4組<small>題四·毒藥案</small></div></div>
     <div class="qr-card" style="--c:#5C1A23"><div class="qr-box" data-sg="5" data-rd="2"></div><div class="qr-cap">第5組<small>題四·毒藥案</small></div></div>
     <div class="qr-card" style="--c:#3E7D5A"><div class="qr-box" data-sg="6" data-rd="2"></div><div class="qr-cap">第6組<small>題四·毒藥案</small></div></div>
   </div>
@@ -1012,12 +1034,12 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 <!-- 倫理學複習：第3回合 QR -->
 <section class="slide">
   <h2>第3回合：題五　三罪的區別　＋　題六　開槍案</h2>
-  <p class="lead qr-intro" style="text-align:left"><b>第1–4組</b> → 討論<b>題五　三罪的區別</b>；<b>第5–8組</b> → 討論<b>題六　開槍案</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來（不只一句、可分多次），投影幕即時顯示。</p>
+  <p class="lead qr-intro" style="text-align:left"><b>第1–3組</b> → 討論<b>題五　三罪的區別</b>；<b>第4–6組</b> → 討論<b>題六　開槍案</b>。各組派一位掃自己的碼，把<b>討論精華</b>打上來（不只一句、可分多次），投影幕即時顯示。</p>
   <div class="qr-stage">
     <div class="qr-card" style="--c:#862633"><div class="qr-box" data-sg="1" data-rd="3"></div><div class="qr-cap">第1組<small>題五·三罪區別</small></div></div>
     <div class="qr-card" style="--c:#A8782E"><div class="qr-box" data-sg="2" data-rd="3"></div><div class="qr-cap">第2組<small>題五·三罪區別</small></div></div>
     <div class="qr-card" style="--c:#1E5F74"><div class="qr-box" data-sg="3" data-rd="3"></div><div class="qr-cap">第3組<small>題五·三罪區別</small></div></div>
-    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-sg="4" data-rd="3"></div><div class="qr-cap">第4組<small>題五·三罪區別</small></div></div>
+    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-sg="4" data-rd="3"></div><div class="qr-cap">第4組<small>題六·開槍案</small></div></div>
     <div class="qr-card" style="--c:#5C1A23"><div class="qr-box" data-sg="5" data-rd="3"></div><div class="qr-cap">第5組<small>題六·開槍案</small></div></div>
     <div class="qr-card" style="--c:#3E7D5A"><div class="qr-box" data-sg="6" data-rd="3"></div><div class="qr-cap">第6組<small>題六·開槍案</small></div></div>
   </div>
@@ -1099,6 +1121,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 
 <!-- ===================== 參　價值思辨導論 ===================== -->
 <section class="slide section-divider">
+  <svg class="sec-art" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="100" cy="100" r="62" stroke-width="7"/><g class="sec-spin"><path d="M100 46 L113 100 L100 154 L87 100 Z" stroke-width="5"/></g><circle cx="100" cy="100" r="7" fill="currentColor" stroke="none"/><line x1="100" y1="26" x2="100" y2="38" stroke-width="6"/><line x1="100" y1="162" x2="100" y2="174" stroke-width="6"/><line x1="26" y1="100" x2="38" y2="100" stroke-width="6"/><line x1="162" y1="100" x2="174" y2="100" stroke-width="6"/></svg>
   <div class="num">參</div>
   <h1>價值思辨導論</h1>
   <p class="when">在學「怎麼思辨」之前，先把四件事說清楚：它的範圍、它的定位、什麼才算「方法」，以及它和規範底線的關係。</p>
@@ -1141,6 +1164,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 
 <!-- ===================== 伍　價值思辨方法論 ===================== -->
 <section class="slide section-divider">
+  <svg class="sec-art" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><rect class="sec-rise" x="24" y="74" width="24" height="98" rx="5" stroke-width="6"/><rect class="sec-rise" x="58" y="52" width="24" height="120" rx="5" stroke-width="6"/><rect class="sec-rise" x="92" y="88" width="24" height="84" rx="5" stroke-width="6"/><rect class="sec-rise" x="126" y="62" width="24" height="110" rx="5" stroke-width="6"/><rect class="sec-rise" x="160" y="98" width="24" height="74" rx="5" stroke-width="6"/></svg>
   <div class="num">肆</div>
   <h1>價值思辨方法論</h1>
   <p class="when">東西方智慧累積下來、值得參考的五種思辨方法。它們還不是一套完整理論，卻足以讓抉擇有所依憑。</p>
@@ -1440,6 +1464,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 
 <!-- ===================== 陸　當前重大價值爭議 ===================== -->
 <section class="slide section-divider">
+  <svg class="sec-art" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><g class="sec-draw"><path d="M100 178 V98" stroke-width="9"/><path d="M100 98 L46 46" stroke-width="8"/><path d="M100 98 L154 46" stroke-width="8"/></g><circle class="sec-pulse" cx="42" cy="38" r="12" stroke-width="6"/><circle class="sec-pulse" cx="158" cy="38" r="12" stroke-width="6"/></svg>
   <div class="num">伍</div>
   <h1>當前重大價值爭議</h1>
   <p class="when">把這五種思辨方法帶進這個時代最棘手的爭議——這正是價值思辨真正派上用場的地方。</p>
