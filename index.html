@@ -209,6 +209,8 @@ table.tbl .lv{font-family:var(--font-serif);font-weight:700;color:var(--color-pr
 .gpage h2 .g-dot{display:inline-block;width:.62em;height:.62em;border-radius:50%;background:var(--c);margin-right:.45em;vertical-align:middle}
 .gpage .gbox{flex:1;min-height:0;overflow:auto;background:rgba(255,255,255,.85);border:2px solid var(--color-line);border-radius:14px;padding:.8em .9em;display:flex;flex-direction:column;gap:.6em;width:100%;margin-top:.3em}
 .gitem{background:#fff;border-left:5px solid var(--c,#862633);border-radius:8px;box-shadow:var(--shadow-soft);padding:.6em .9em;font-size:clamp(1.35rem,1.7vw,1.7rem);line-height:1.5;white-space:pre-wrap;animation:u3pop .3s ease}
+.gitem-img img{max-width:100%;max-height:38vh;border-radius:8px;display:block;margin:0 auto}
+.gitem-img .gtag{font-size:.72em;color:var(--color-muted);margin-bottom:.25em}
 .gbox .empty-hint{margin:auto;font-size:clamp(1.35rem,1.65vw,1.65rem);color:var(--color-muted);font-style:italic;text-align:center}
 @keyframes u3pop{from{opacity:0;transform:scale(.85)}to{opacity:1}}
 .daiuda{display:none}  /* 教授2026-07-24：投稿頁畫面拿掉「無網路時·老師代打」列；功能保留，要恢復改回 display:flex;gap:.5em;align-items:center;margin-top:.6em;flex-wrap:wrap */
@@ -1728,7 +1730,11 @@ window.U3=(function(){
   const BASE=location.origin+location.pathname.replace(/[^/]*$/,'');
   const SUBMIT=BASE+'submit.html', ASK=BASE+'ask.html', VOTE=BASE+'vote.html';
   const configured=()=>window.FB_CONFIG&&FB_CONFIG.apiKey&&FB_CONFIG.apiKey.indexOf('PASTE')<0;
-  const listify=o=>o?Object.keys(o).sort((a,b)=>(o[a].t||0)-(o[b].t||0)).map(k=>o[k].txt):[];
+  const listify=o=>o?Object.keys(o).sort((a,b)=>(o[a].t||0)-(o[b].t||0)).map(k=>o[k].txt!==undefined?o[k].txt:(o[k].img?{img:o[k].img,tag:o[k].tag||''}:'')):[];
+  // 分組頁項目渲染：文字項＝原樣；截圖項（submit.html 上傳、data URL 存 RTDB）＝題目標籤＋縮圖
+  const gItem=t=>typeof t==='string'
+    ?`<div class="gitem">${esc(t)}</div>`
+    :((t&&t.img&&/^data:image\//.test(t.img))?`<div class="gitem gitem-img">${t.tag?`<div class="gtag">${esc(t.tag)}</div>`:''}<img src="${t.img}" alt="小組截圖投稿"></div>`:'');
   let root=null, online=false;
   let PRE={1:[],2:[],3:[],4:[],5:[],6:[]};   // 課前作業六組
   let SIX={1:[],2:[],3:[],4:[],5:[],6:[]};   // 倫理學複習六組
@@ -1757,19 +1763,19 @@ window.U3=(function(){
   function renderPre(g){
     const box=document.getElementById('pg'+g); if(!box)return;
     const a=PRE[g]||[];
-    box.innerHTML=a.length?a.map(t=>`<div class="gitem">${esc(t)}</div>`).join('')
+    box.innerHTML=a.length?a.map(gItem).join('')
       :'<div class="empty-hint">掃 QR 把全組討論的精華打上來（不只一句），這裡會即時出現。</div>';
   }
   function renderSix(g){
     const box=document.getElementById('sg'+g); if(!box)return;
     const a=SIX[g]||[];
-    box.innerHTML=a.length?a.map(t=>`<div class="gitem">${esc(t)}</div>`).join('')
-      :'<div class="empty-hint">掃 QR 把本組這一題的討論精華打上來，這裡會即時出現。</div>';
+    box.innerHTML=a.length?a.map(gItem).join('')
+      :'<div class="empty-hint">掃 QR 把本組這一題的討論精華打上來（文字或截圖都可以），這裡會即時出現。</div>';
   }
   function renderEQ(g){
     const box=document.getElementById('eq'+g); if(!box)return;
     const a=EQ[g]||[];
-    box.innerHTML=a.length?a.map(t=>`<div class="gitem">${esc(t)}</div>`).join('')
+    box.innerHTML=a.length?a.map(gItem).join('')
       :'<div class="empty-hint">掃 QR 把本組還不清楚的地方打上來（最多兩則），這裡會即時出現。</div>';
   }
   function renderPoll(q){
@@ -1790,7 +1796,7 @@ window.U3=(function(){
   function doRenderCloud(p){
     const canvas=document.getElementById('cloud-'+p); if(!canvas)return;
     const wrap=canvas.parentElement, empty=document.getElementById('empty-'+p), cnt=document.getElementById('cnt-'+p);
-    const texts=CLOUDS[p]||[];
+    const texts=(CLOUDS[p]||[]).filter(t=>typeof t==='string');
     if(cnt)cnt.textContent=texts.length;
     const freq={}; texts.forEach(t=>{const w=(t||'').trim();if(w)freq[w]=(freq[w]||0)+1;});
     const entries=Object.entries(freq);
@@ -1856,9 +1862,10 @@ window.U3=(function(){
   function csvCell(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"';}
   function downloadCSV(stamp){
     var rows=[['房號','區段','組別','內容']];
-    [1,2,3,4,5,6].forEach(g=>(PRE[g]||[]).forEach(t=>rows.push([ROOM,'課前作業精華','第'+g+'組',t])));
-    [1,2,3,4,5,6].forEach(g=>(SIX[g]||[]).forEach(t=>rows.push([ROOM,'倫理學複習討論','第'+g+'組',t])));
-    [1,2,3,4,5,6].forEach(g=>(EQ[g]||[]).forEach(t=>rows.push([ROOM,'倫理學複習收穫（課前作業第三題）','第'+g+'組',t])));
+    const csvTxt=t=>typeof t==='string'?t:'[截圖投稿：'+((t&&t.tag)||'無標籤')+'（圖檔僅存雲端封存，CSV 不含圖）]';
+    [1,2,3,4,5,6].forEach(g=>(PRE[g]||[]).forEach(t=>rows.push([ROOM,'課前作業精華','第'+g+'組',csvTxt(t)])));
+    [1,2,3,4,5,6].forEach(g=>(SIX[g]||[]).forEach(t=>rows.push([ROOM,'倫理學複習討論','第'+g+'組',csvTxt(t)])));
+    [1,2,3,4,5,6].forEach(g=>(EQ[g]||[]).forEach(t=>rows.push([ROOM,'倫理學複習收穫（課前作業第三題）','第'+g+'組',csvTxt(t)])));
     (CLOUDS.ethics||[]).forEach(t=>rows.push([ROOM,'倫理學問題雲','全班',t]));
     var csv=rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
     var blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');

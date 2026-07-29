@@ -24,6 +24,9 @@ textarea{width:100%;font-family:inherit;font-size:1.08rem;line-height:1.6;paddin
 textarea:focus{outline:none;border-color:var(--c)}
 button.send{margin-top:.7em;width:100%;background:var(--c);color:#fff;border:none;border-radius:999px;padding:.85em;font-size:1.1rem;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.05em}
 button.send:active{transform:translateY(1px);opacity:.9}
+button.send.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.item img{max-width:100%;border-radius:8px;display:block}
+.item .tag{font-size:.85rem;color:#6B6B6B;margin-bottom:.3em}
 .list{margin-top:1em;display:flex;flex-direction:column;gap:.55em}
 .item{background:#FBF6E8;border-left:4px solid var(--c);border-radius:8px;padding:.6em .8em;font-size:1rem;white-space:pre-wrap;position:relative}
 .item .del{position:absolute;top:.3em;right:.5em;color:#b08;opacity:.5;font-size:.8rem;background:none;border:none;cursor:pointer}
@@ -41,6 +44,10 @@ button.send:active{transform:translateY(1px);opacity:.9}
     <label id="lblMain">① 課前兩題·最有感的一點（一句＋為什麼）</label>
     <textarea id="main" placeholder="課前兩題（卡繆的抉擇／飲食指南的改變），全組覺得最有感或最有爭議的一點是什麼？用一句話講出來，再說說為什麼…"></textarea>
     <button class="send" onclick="send()">送出</button>
+    <div id="photoRow" style="display:none">
+      <input type="file" id="shot" accept="image/*" style="display:none">
+      <button class="send alt" onclick="document.getElementById('shot').click()">上傳截圖（拍照或選圖）</button>
+    </div>
     <div class="list" id="mainList"></div>
   </section>
   <p class="foot" id="foot">連線中…</p>
@@ -77,6 +84,8 @@ button.send:active{transform:translateY(1px);opacity:.9}
     document.getElementById('blkMain').style.borderTopColor=C;
     document.title='第'+g+'組 '+Qg.t+' · 投稿';
     window.U3_QTAG='【'+Qg.t+'】';
+    document.getElementById('photoRow').style.display='block';
+    document.getElementById('introTxt').innerHTML+='　也可以直接<b>上傳全組筆記或白板的截圖／照片</b>，同樣即時上牆。';
   }else if(round==='ethicsq3'){
     document.getElementById('gSub').textContent='倫理學疑問·問題意識';
     document.getElementById('introTxt').innerHTML='回到<b>課前作業第三題</b>——「提出你在倫理學的學習上不太明白的一個主題，設法說明你不太瞭解與需要釐清的地方」。整合全組意見，<b>最多提出兩則疑問</b>，每一則都要有<b>詳細的問題意識說明</b>：卡在哪個概念、為什麼不清楚、跟哪個案例或情境有關。<b>每次送出一則，最多兩則</b>，投影幕即時顯示。';
@@ -98,7 +107,7 @@ button.send:active{transform:translateY(1px);opacity:.9}
   }
   function esc(s){return String(s||'').replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
   function configured(){return window.FB_CONFIG&&FB_CONFIG.apiKey&&FB_CONFIG.apiKey.indexOf('PASTE')<0;}
-  function listify(o){if(!o)return[];return Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return {k:k,txt:o[k].txt};});}
+  function listify(o){if(!o)return[];return Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return {k:k,txt:o[k].txt,img:o[k].img,tag:o[k].tag};});}
   var DB=null, foot=document.getElementById('foot');
   function flash(t){var f=document.getElementById('flash');f.textContent=t;f.classList.add('show');setTimeout(function(){f.classList.remove('show');},1400);}
   function render(arr){
@@ -106,7 +115,10 @@ button.send:active{transform:translateY(1px);opacity:.9}
     if(!arr||!arr.length){box.innerHTML='<div class="empty">還沒送出內容。</div>';return;}
     box.innerHTML=arr.map(function(o){
       var del=DB?'<button class="del" data-k="'+o.k+'">刪</button>':'';
-      return '<div class="item">'+esc(o.txt)+del+'</div>';
+      var body=(o.img&&/^data:image\//.test(o.img))
+        ?((o.tag?'<div class="tag">'+esc(o.tag)+'</div>':'')+'<img src="'+o.img+'" alt="小組截圖">')
+        :esc(o.txt);
+      return '<div class="item">'+body+del+'</div>';
     }).join('');
   }
   document.getElementById('mainList').addEventListener('click',function(e){
@@ -124,6 +136,33 @@ button.send:active{transform:translateY(1px);opacity:.9}
     else{var a=loadLocal();a.push(txt);saveLocal(a);renderLocal();}
     ta.value='';flash('已送出！');
   };
+  document.getElementById('shot').addEventListener('change',function(){
+    var f=this.files&&this.files[0]; this.value=''; if(!f)return;
+    if(!DB){flash('離線模式不支援截圖投稿');return;}
+    flash('圖片處理中…');
+    var rd=new FileReader();
+    rd.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        function shrink(maxEdge,q){
+          var sc=Math.min(1,maxEdge/Math.max(im.width,im.height));
+          var cv=document.createElement('canvas');
+          cv.width=Math.max(1,Math.round(im.width*sc));cv.height=Math.max(1,Math.round(im.height*sc));
+          var ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);
+          ctx.drawImage(im,0,0,cv.width,cv.height);
+          return cv.toDataURL('image/jpeg',q);
+        }
+        var url=shrink(1400,0.72);
+        if(url.length>950000)url=shrink(1000,0.55);
+        if(url.length>950000){flash('圖片太大，請截小一點再試');return;}
+        DB.push({img:url,tag:window.U3_QTAG||'',t:Date.now()});
+        flash('截圖已送出！');
+      };
+      im.onerror=function(){flash('這張圖讀不出來，請改用截圖（PNG/JPG）');};
+      im.src=rd.result;
+    };
+    rd.readAsDataURL(f);
+  });
   if(configured()&&typeof firebase!=='undefined'){
     try{
       firebase.initializeApp(window.FB_CONFIG);
